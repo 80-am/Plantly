@@ -69,8 +69,8 @@ var svg = $("svg");
 
 var leafCount = 30;
 var plants = 8;
-var centerX = 600;
-var offsetX = 400;
+var centerX = 480;
+var offsetX = 300;
 
 $("#create").on("click", generate);
 
@@ -118,7 +118,6 @@ function createPlant() {
 
   TweenLite.set(stem, {
     opacity: 0,
-    drawSVG: 0,
     //attr: { id, d: `M${values.join(" ")}` }
     attr: { id: id, d: solve(coords) }
   });
@@ -152,7 +151,7 @@ function createLeaf(point, scale, height, grow) {
         scaleX: scale.x,
         scaleY: scale.y,
         rotation: _.random(180) - 180,
-        fill: "rgb(0," + _.random(80, 160) + ",0)",
+        fill: "rgb(0," + _.random(80, 160) + ",70)",
         attr: { d: d }
       });
 
@@ -164,8 +163,8 @@ function createLeaf(point, scale, height, grow) {
 function createPoints() {
 
   var x = _.random(centerX - offsetX, centerX + offsetX);
-  var y = 600;
-  var dy = 5;
+  var y = 1200;
+  var dy = 6;
   var offset = 0.007;
   var count = _.random(30, 55);
   var points = [{ x: x, y: y }];
@@ -173,7 +172,7 @@ function createPoints() {
   for (var i = 1; i <= count; i++) {
     points.push({
       x: points[i - 1].x + i * offset * (_.random(21) - 10),
-      y: 395 - dy * i
+      y: 795 - dy * i
     });
   }
   return points;
@@ -215,3 +214,71 @@ function solve(data) {
 
   return path;
 }
+
+/* THIS WILL MAKE THE TITLE FADE IN ON FIRSTPAGE */
+
+(function($){
+function injector(t, splitter, klass, after) {
+var a = t.text().split(splitter), inject = '';
+
+if (a.length) {
+$(a).each(function(i, item) {
+
+/* -----------------------------
+   randomize array
+   ----------------------------- */
+var random_index = Math.floor(Math.random()*a.length);
+
+inject += '<span class="'+klass+(random_index+1)+'">'+item+'</span>'+after;
+});
+t.empty().append(inject);
+}
+}
+
+var methods = {
+init : function() {
+
+return this.each(function() {
+injector($(this), '', 'char', '');
+});
+
+},
+
+words : function() {
+
+return this.each(function() {
+injector($(this), ' ', 'word', ' ');
+});
+
+},
+
+lines : function() {
+
+return this.each(function() {
+var r = "eefec303079ad17405c889e092e105b0";
+// Because it's hard to split a <br/> tag consistently across browsers,
+// (*ahem* IE *ahem*), we replaces all <br/> instances with an md5 hash
+// (of the word "split"). If you're trying to use this plugin on that
+// md5 hash string, it will fail because you're being ridiculous.
+injector($(this).children("br").replaceWith(r).end(), r, 'line', '');
+});
+
+}
+};
+
+$.fn.lettering = function( method ) {
+// Method calling logic
+if ( method && methods[method] ) {
+return methods[ method ].apply( this, [].slice.call( arguments, 1 ));
+} else if ( method === 'letters' || ! method ) {
+return methods.init.apply( this, [].slice.call( arguments, 0 ) ); // always pass an array
+}
+$.error( 'Method ' + method + ' does not exist on jQuery.lettering' );
+return this;
+};
+
+})(jQuery);
+
+$('h1').lettering();
+
+/* ^ END OF TITLE EFFECT */
