@@ -1,0 +1,87 @@
+body {
+  background: #eee;
+  overflow: hidden;
+  font-family: monospace;
+}
+
+.welcomeHeader {
+  padding-top: 0.2em;
+  font-size: 4em;
+  text-align: center;
+  color: #042505;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.logo {
+  text-align: left;
+  width: 5%;
+}
+
+.loginButton {
+  text-align: right;
+  padding-right: 2em;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  bottom: 0%;
+  position: absolute;
+}
+
+
+/* THIS WILL MAkE THE TITLE FADE IN ON FIRST PAGE */
+
+@keyframes charFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.char1, .char2, .char3, .char4, .char5, .char6 {
+  opacity: 0;
+  color: #042505;
+}
+
+.char1 {
+  animation: charFade 2s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
+}
+
+.char2 {
+  animation: charFade 2s;
+  animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+}
+
+.char3 {
+  animation: charFade 2s;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+.char4 {
+  animation: charFade 2s;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.char5 {
+  animation: charFade 2s;
+  animation-delay: 0.4s;
+  animation-fill-mode: forwards;
+}
+
+.char6 {
+  animation: charFade 2s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
