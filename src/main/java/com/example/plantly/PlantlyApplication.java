@@ -23,6 +23,14 @@ public class PlantlyApplication {
 	}
 
 
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+
+
+
 
 }
 
