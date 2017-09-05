@@ -1,21 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>LoginPage</title>
+    <title>Login</title>
 </head>
 <body>
-<h3>Welcome! Please log in.</h3>
+<p id ="warning" th:text="${info}"></p>
 
-<form action="/login" method="post">
-    <input name="firstname" placeholder="First name" type="text"/>
-    <p></p>
-    <input name="lastname" placeholder="Last name"  type="text"/>
-    <p></p>
-    <input name="email" placeholder="email" type="email"/>
-    <p></p>
-    <input name="password" placeholder="Password" type="password"/>
-    <input type="submit" value="Login"/>
-</form>
+this is login page
 </body>
 </html>
