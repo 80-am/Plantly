@@ -4,9 +4,11 @@ import com.example.plantly.Repository.DBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@Controller
 @SpringBootApplication
 public class PlantlyApplication {
 
@@ -17,7 +19,7 @@ public class PlantlyApplication {
 		SpringApplication.run(PlantlyApplication.class, args);
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
 	public String homepage() {
 		return "index";
 	}
