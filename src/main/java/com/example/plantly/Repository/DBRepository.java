@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
 
 // här vi kommer skriva alla som gäller koppling med databas och
 
@@ -18,7 +19,6 @@ public class DBRepository implements PlantyDBRepository {
 
     @Autowired
     private DataSource dataSource;
-
 
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
