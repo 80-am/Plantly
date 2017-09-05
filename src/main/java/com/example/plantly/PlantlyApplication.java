@@ -36,6 +36,11 @@ public class PlantlyApplication {
 		return "index";
 	}
 
+	@GetMapping("/userHP")
+	public String userHP() {
+		return "userHP";
+	}
+
 
 
 	@GetMapping("/signup")
