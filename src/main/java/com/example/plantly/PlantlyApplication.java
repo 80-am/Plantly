@@ -60,10 +60,7 @@ public class PlantlyApplication {
 			return "login";
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+
 
 }
 
