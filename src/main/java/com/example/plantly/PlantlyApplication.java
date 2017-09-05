@@ -1,6 +1,7 @@
 package com.example.plantly;
 
 import com.example.plantly.Domain.User;
+
 import com.example.plantly.Repository.DBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SpringBootApplication
@@ -31,6 +35,7 @@ public class PlantlyApplication {
 	public String homepage() {
 		return "index";
 	}
+
 
 
 	@GetMapping("/signup")
@@ -55,11 +60,10 @@ public class PlantlyApplication {
 			return "login";
 	}
 
-
-
-
-
-
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 
 }
 
