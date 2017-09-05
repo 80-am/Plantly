@@ -50,4 +50,25 @@ public class DBRepository implements PlantyDBRepository {
     private User rsUser(ResultSet rs) throws SQLException {
         return new User(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
     }
+
+    public User getCurrentUser(String email, String password) {
+        List<User> getAllUsers = getAllUsers();
+            for(User u: getAllUsers) {
+                if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                    return u;
+            }
+            return null;
+    }
+
+    @Override
+    public boolean userExists(String email, String password) {
+        List<User> getAllUsers = getAllUsers();
+        for(User u: getAllUsers) {
+            if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                return true;
+        }
+        return false;
+    }
+
+
 }

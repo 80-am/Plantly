@@ -7,6 +7,11 @@
 <body>
 <p id ="warning" th:text="${info}"></p>
 
-this is login page
+<form action="/user" method="post">
+<input name="email" placeholder="email" type="email"/>
+<p></p>
+<input name="password" placeholder="Password" type="password"/>
+<input type="submit" value="Login"/>
+</form>
 </body>
 </html>
