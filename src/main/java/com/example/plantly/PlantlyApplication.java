@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class PlantlyApplication {
 
 
 	@GetMapping("/signup")
-	public String login() {
+	public String signup() {
 		return "signup";
 	}
 
@@ -59,6 +61,51 @@ public class PlantlyApplication {
 			DBConnection.addUser(email, firstname, lastname, password);
 			return "login";
 	}
+
+	@PostMapping("/user")
+	public ModelAndView loggedin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
+
+		boolean userExists = DBConnection.userExists(email, password);
+		User user = DBConnection.getCurrentUser(email, password);
+
+		if(userExists) {
+			session.setAttribute("user", user);
+			return new ModelAndView("userpage").addObject("user", user);
+		}
+		model.addAttribute("info", "Wrong password or email try again");
+		return new ModelAndView("login");
+
+	}
+
+	@GetMapping("/user")
+	public ModelAndView userpage(HttpSession session) {
+		if (session.getAttribute("user") != null) {
+			return new ModelAndView("userpage");
+		}
+		return new ModelAndView("redirect:/login");
+	}
+
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpSession session, HttpServletResponse res) {
+		 {
+			session.invalidate();
+			Cookie cookie = new Cookie("jsessionid", "");
+			cookie.setMaxAge(0);
+			res.addCookie(cookie);
+			return new ModelAndView("redirect:/");
+		}
+	}
+
+
+
+
+
+
 
 
 
