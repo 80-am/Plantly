@@ -68,7 +68,7 @@ var leaves = $("#leaves");
 var svg = $("svg");
 
 var leafCount = 30;
-var plants = 8;
+var plants = 28;
 var centerX = 480;
 var offsetX = 300;
 

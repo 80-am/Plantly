@@ -21,8 +21,9 @@ public class DBRepository implements PlantyDBRepository {
     @SuppressWarnings("SpringJavaAutowiringInspection")
 
     @Autowired
-    private DataSource dataSource
-    
+    private DataSource dataSource;
+
+/*
     @Override
     public  Plant getPlantByPlantGenus (String plantGenus){
         try(Connection conn = dataSource.getConnection();
@@ -52,6 +53,8 @@ public class DBRepository implements PlantyDBRepository {
         } catch (SQLException e) {
         }
     }
+
+    */
 
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
