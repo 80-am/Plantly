@@ -43,7 +43,7 @@
   <div class="row ">
     <div class="col-md-9 vcenter">
       <div id="circle-shape-example">
-  <img src="/images/aloeVera.png" class="curve"/>
+  <img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>
   <h1 th:text="${plant.plantSpecies}"></h1>
   <p th:text="${plant.plantInfo}">
    </p>

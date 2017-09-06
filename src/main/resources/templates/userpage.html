@@ -50,9 +50,10 @@
 <!--Översiktstabell över de plantor en användare har -->
 
 <h1>My Plants</h1>
-<p th:text="${user}"></p>
+<p th:text="${session.user.firstname}"></p>
 
-<a href="logout">logout</a>
+<div >
+</div>
 <table class="rwd-table">
     <tr>
         <th>Plant</th>
