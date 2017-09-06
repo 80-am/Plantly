@@ -88,5 +88,5 @@ svg {
 }
 
 .bg-light {
-  background-color: rgba(237, 237, 237, 0.9) !important;
+  background-color: hsla(0, 0%, 93%, 0.9) !important;
 }
