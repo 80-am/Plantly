@@ -38,12 +38,6 @@ public class PlantlyApplication {
 		return "index";
 	}
 
-	@GetMapping("/userHP")
-	public String userHP() {
-		return "userHP";
-	}
-
-
 
 	@GetMapping("/signup")
 	public String signup() {
@@ -104,6 +98,12 @@ public class PlantlyApplication {
 			res.addCookie(cookie);
 			return new ModelAndView("redirect:/");
 		}
+	}
+
+
+	@GetMapping("/plantInfo")
+	public String plantInfo() {
+		return "plantInfo";
 	}
 }
 
