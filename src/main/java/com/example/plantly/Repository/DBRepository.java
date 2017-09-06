@@ -23,7 +23,7 @@ public class DBRepository implements PlantyDBRepository {
     @Autowired
     private DataSource dataSource;
 
-/*
+
     @Override
     public  Plant getPlantByPlantGenus (String plantGenus){
         try(Connection conn = dataSource.getConnection();
@@ -42,7 +42,7 @@ public class DBRepository implements PlantyDBRepository {
         }
         return null;
     }
-     
+
     @Override
     public void addPlantToUserPlants(String username, String password){
         try (Connection conn = dataSource.getConnection();
@@ -54,7 +54,7 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
-    */
+    
 
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
