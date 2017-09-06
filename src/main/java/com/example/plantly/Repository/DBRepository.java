@@ -59,7 +59,7 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     @Override
-    public String addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
+    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
@@ -71,15 +71,13 @@ public class DBRepository implements PlantyDBRepository {
                 ps.executeUpdate();
             } catch (SQLException e) {
             }
-            return "Success!";
         }
-        return "Fail!";
     }
 
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO [Users] (Email, FirstName, LastName, Password) values (?,?,?,?) ")) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO [Users] (Email, FirstName, LastName, Password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
             ps.setString(1, email);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
@@ -104,7 +102,7 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     private User rsUser(ResultSet rs) throws SQLException {
-        return new User(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
+        return new User(rs.getInt("UserId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
     }
   
     public int getPlantIdFromPlants(String plantSpecies){
@@ -128,8 +126,9 @@ public class DBRepository implements PlantyDBRepository {
     public User getCurrentUser(String email, String password) {
         List<User> getAllUsers = getAllUsers();
             for(User u: getAllUsers) {
-                if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                if(u.getEmail().equals(email) && u.getPassword().equals(password)) {
                     return u;
+                }
             }
             return null;
     }
