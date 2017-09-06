@@ -1,5 +1,6 @@
 package com.example.plantly;
 
+import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 
 import com.example.plantly.Repository.DBRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -102,8 +104,9 @@ public class PlantlyApplication {
 
 
 	@GetMapping("/plantInfo")
-	public String plantInfo() {
-		return "plantInfo";
+	public ModelAndView plantInfo() {
+		Plant plant = DBConnection.getPlantByPlantSpecies("Orchidaceae Phalaenopsis");
+		return new ModelAndView("plantInfo").addObject("plant",plant);
 	}
 }
 
