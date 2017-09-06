@@ -25,7 +25,10 @@ public class DBRepository implements PlantyDBRepository {
     private DataSource dataSource;
     
    @Override
-    public Plant getPlantByPlantSpecies (String plantSpecies){
+    public Plant getPlantByPlantSpecies (String plantSpecies)
+
+    @Override
+    public  Plant getPlantByPlantGenus (String plantGenus){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Plants WHERE PlantSpecies = ?")){
             ps.setString(1, plantSpecies);
@@ -106,7 +109,7 @@ public class DBRepository implements PlantyDBRepository {
     private User rsUser(ResultSet rs) throws SQLException {
         return new User(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
     }
-
+  
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT PlantID FROM Plants WHERE PlantSpecies = ?")) {
@@ -123,5 +126,24 @@ public class DBRepository implements PlantyDBRepository {
             throw new PlantyRepositoryException(e);
         }
         return 0;
+    }
+
+    public User getCurrentUser(String email, String password) {
+        List<User> getAllUsers = getAllUsers();
+            for(User u: getAllUsers) {
+                if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                    return u;
+            }
+            return null;
+    }
+
+    @Override
+    public boolean userExists(String email, String password) {
+        List<User> getAllUsers = getAllUsers();
+        for(User u: getAllUsers) {
+            if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                return true;
+        }
+        return false;
     }
 }

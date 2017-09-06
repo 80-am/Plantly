@@ -1,11 +1,12 @@
 body {
+  margin-top: 45px;
   background: #eee;
   overflow: hidden;
-  font-family: monospace;
+  font-family: 'Cantarell', sans-serif;
 }
 
 .welcomeHeader {
-  padding-top: 0.2em;
+  padding-top: 2em;
   font-size: 4em;
   text-align: center;
   color: #042505;
@@ -84,4 +85,8 @@ svg {
   animation: charFade 2s;
   animation-delay: 0.5s;
   animation-fill-mode: forwards;
+}
+
+.bg-light {
+  background-color: #eee !important;
 }
