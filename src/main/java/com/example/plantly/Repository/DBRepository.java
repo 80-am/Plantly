@@ -25,10 +25,7 @@ public class DBRepository implements PlantyDBRepository {
     private DataSource dataSource;
     
    @Override
-    public Plant getPlantByPlantSpecies (String plantSpecies)
-
-    @Override
-    public  Plant getPlantByPlantGenus (String plantGenus){
+    public Plant getPlantByPlantSpecies (String plantSpecies){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Plants WHERE PlantSpecies = ?")){
             ps.setString(1, plantSpecies);
