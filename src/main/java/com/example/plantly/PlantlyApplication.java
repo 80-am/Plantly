@@ -60,7 +60,7 @@ public class PlantlyApplication {
 			DBConnection.addUser(email, firstname, lastname, password);
 			return "login";
 	}
-
+  
 	@PostMapping("/user")
 	public ModelAndView loggedin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
 
@@ -100,20 +100,11 @@ public class PlantlyApplication {
 		}
 	}
 
+
 	@GetMapping("/plantInfo")
 	public String plantInfo() {
 		return "plantInfo";
 	}
-
-
-
-
-
-
-
-
-
-
 }
 
 

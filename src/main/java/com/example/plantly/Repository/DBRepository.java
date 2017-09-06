@@ -1,5 +1,6 @@
 package com.example.plantly.Repository;
 
+import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,43 +19,62 @@ import java.sql.SQLException;
 @Component
 public class DBRepository implements PlantyDBRepository {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
+    //@SuppressWarnings("SpringJavaAutowiringInspection")
 
     @Autowired
     private DataSource dataSource;
 
-
     @Override
-    public  Plant getPlantByPlantGenus (String plantGenus){
+    public Plant getPlantByPlantSpecies (String plantSpecies){
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT PlantGenus, PlantID FROM Plants WHERE Username = ?")){
-            ps.setString(1, plantGenus);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Plants WHERE PlantSpecies = ?")){
+            ps.setString(1, plantSpecies);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Plant user = new Plant(rs.getString("PlantGenus"), rs.getString("Password"), rs.getInt("Userid"));
-                    return user;
+                    Plant plant = new Plant(rs.getString("PlantSpecies"),
+                            rs.getString("PlantGenus"),
+                            rs.getString("PlantInfo"),
+                            rs.getString("Water"),
+                            rs.getString("Tempature"),
+                            rs.getString("Humidity"),
+                            rs.getString("Flowering"),
+                            rs.getString("Pests"),
+                            rs.getString("Diseases"),
+                            rs.getString("Soil"),
+                            rs.getString("PotSize"),
+                            rs.getInt("Poisonous"),
+                            rs.getInt("DaysUntilWatering"),
+                            rs.getString("Fertilizer"),
+                            rs.getString("Light"),
+                            rs.getInt("plantID"));
+                    return plant;
                 }
             }catch(SQLException e){
                 return null;
             }
         }catch(SQLException e){
-            throw new PlantyRepositoryException("Connection in getUserByUserName failed!");
+            throw new PlantyRepositoryException("Connection in getPlantByPlantSpecies failed!");
         }
         return null;
     }
 
     @Override
-    public void addPlantToUserPlants(String username, String password){
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO USERS(Username, Password) VALUES(?,?)", new String[]{"UserID"})) {
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ps.executeUpdate();
-        } catch (SQLException e) {
+    public String addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
+        int plantId = getPlantIdFromPlants(plantSpecies);
+        if(plantId != 0){
+            try (Connection conn = dataSource.getConnection();
+                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
+                ps.setInt(1, userId);
+                ps.setString(2, nickName);
+                ps.setString(3, photo);
+                ps.setInt(4, plantId);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+            }
+            return "Success!";
         }
+        return "Fail!";
     }
-
-    
 
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
@@ -87,13 +107,31 @@ public class DBRepository implements PlantyDBRepository {
         return new User(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
     }
 
+    public int getPlantIdFromPlants(String plantSpecies){
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT PlantID FROM Plants WHERE PlantSpecies = ?")) {
+            ps.setString(1, plantSpecies);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int plantId = rs.getInt("plantID");
+                    return plantId;
+                }
+            }catch(SQLException e){
+                return 0;
+            }
+        }catch (SQLException e){
+            throw new PlantyRepositoryException(e);
+        }
+        return 0;
+    }
+
     public User getCurrentUser(String email, String password) {
         List<User> getAllUsers = getAllUsers();
-            for(User u: getAllUsers) {
-                if(u.getEmail().equals(email) && u.getPassword().equals(password))
-                    return u;
-            }
-            return null;
+        for(User u: getAllUsers) {
+            if(u.getEmail().equals(email) && u.getPassword().equals(password))
+                return u;
+        }
+        return null;
     }
 
     @Override
@@ -105,6 +143,4 @@ public class DBRepository implements PlantyDBRepository {
         }
         return false;
     }
-
-
 }
