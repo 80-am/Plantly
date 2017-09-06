@@ -103,10 +103,10 @@ public class PlantlyApplication {
 	}
 
 
-	@GetMapping("/plantInfo")
-	public ModelAndView plantInfo() {
-		Plant plant = DBConnection.getPlantByPlantSpecies("Orchidaceae Phalaenopsis");
-		return new ModelAndView("plantInfo").addObject("plant",plant);
+	@GetMapping("/plantinfo")
+	public ModelAndView plantinfo() {
+		Plant plant = DBConnection.getPlantByPlantSpecies("Aloe Vera");
+		return new ModelAndView("plantinfo").addObject("plant",plant);
 	}
 }
 
