@@ -31,6 +31,11 @@ public class DBController {
     public String signup() {
         return "signup";
     }
+    
+    @GetMapping("/about")
+	public String about() {
+		return "about";
+	}
 
     @PostMapping("/login")
     public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password)
