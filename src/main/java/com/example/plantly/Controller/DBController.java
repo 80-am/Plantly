@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.http.HTTPBinding;
 import java.util.List;
 
 @Controller
@@ -28,28 +28,23 @@ public class DBController {
     public String homepage() {
         return "index";
     }
-
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
     
     @GetMapping("/about")
 	public String about() {
 		return "about";
 	}
 
-    @PostMapping("/login")
+    @PostMapping("/signup")
     public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
         List<User> allUsers = DBConnection.getAllUsers();
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).getEmail().equals(email)) {
                 model.addAttribute("info", "User with this email already exists");
-                return "login";
+                return "redirect:/";
             }
         }
         DBConnection.addUser(email, firstname, lastname, password);
-        return "login";
+        return "redirect:/";
     }
 
     @PostMapping("/user")
@@ -74,13 +69,9 @@ public class DBController {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/");
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession session, HttpServletResponse res) {
@@ -93,10 +84,9 @@ public class DBController {
         }
     }
 
-    @GetMapping("/plantinfo")
-
-    public ModelAndView plantinfo() {
-        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa"); // hard coded
+    @GetMapping("/plantinfo/{plantSpecies}")
+    public ModelAndView plantinfo(@PathVariable String plantSpecies) {
+        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 

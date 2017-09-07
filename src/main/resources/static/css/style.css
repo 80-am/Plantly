@@ -1,5 +1,4 @@
 body {
-  margin-top: 70px;
   background: #eee;
   color: #042505;
   font-family: 'Cantarell', sans-serif;
@@ -32,9 +31,15 @@ body {
   font-size: x-small;
 }
 
-.epic-about h1 {
+.epic-about h1 h2 {
   margin-bottom: 20px;
 }
+
+.epic-about {
+    margin: auto;
+    width: 70%;
+}
+
 .col-dev-team {
   margin: 10px;
   padding: 15px;
@@ -170,7 +175,6 @@ svg {
 }
 /* LOGIN SIGN UP TABLE */
 
-
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -238,7 +242,7 @@ a:hover {
   display: none;
 }
 
-h2 {
+.form h2 {
   text-align: center;
   color: #eee;
   font-weight: 300;
@@ -348,3 +352,22 @@ textarea {
   text-align: right;
 }
 
+/*Glyphicons*/
+
+.glyphicon-red {
+  color: #8b0000;
+}
+.glyphicon-blue {
+  color: #042E7F;
+}
+.glyphicon-grey {
+  color: hsl(0, 0%, 55%);
+}
+
+.glyphicon-yellow {
+  color: hsl(60, 100%, 30%);
+}
+
+.glyphicon-green {
+  color: green;
+}
