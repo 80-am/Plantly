@@ -277,10 +277,17 @@ return this;
 
 })(jQuery);
 
-// $('h1').lettering();
+$('h1').lettering();
 
-/* ^ END OF TITLE EFFECT */
+/*  RANDOM MESSAGE ON HEADERS */
 
 const messages = ['grow and show', 'planting a better world', 'keep it in your plants', 'soil meets body', 'wet yo plants', 'remember your roots', 'use with caution', 'not enough thyme', 'drop ya pansies', 'cat need catnip'];
-const randomIndex = Math.round(Math.random()*messages.length-1*1.2);
+const randomIndex = Math.floor(Math.random()*messages.length);
 document.getElementById("randomHeader").innerHTML = messages[randomIndex];
+
+$(document).ready(function(){
+    $("#loginButton").click(function(){
+      $("#form").show();
+        $("#randomHeader").hide();
+    });
+});

@@ -190,6 +190,8 @@ a:hover {
 }
 
 .form {
+
+  display: none;
   background: rgba(19, 35, 47, 0.9);
   padding: 40px;
   max-width: 400px;
