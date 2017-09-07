@@ -94,7 +94,9 @@ public class DBController {
     }
 
     @GetMapping("/plantinfo")
-        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
+
+    public ModelAndView plantinfo() {
+        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa"); // hard coded
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
@@ -106,6 +108,7 @@ public class DBController {
     @PostMapping("/addUserPlant")
     public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+
         return "redirect:/user";
     }
 }
