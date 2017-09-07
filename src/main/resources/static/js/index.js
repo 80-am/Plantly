@@ -285,6 +285,8 @@ const messages = ['grow and show', 'planting a better world', 'keep it in your p
 const randomIndex = Math.floor(Math.random()*messages.length);
 document.getElementById("randomHeader").innerHTML = messages[randomIndex];
 
+/* HIDE AND SHOW LOGIN FORM */
+
 $(document).ready(function(){
     $("#loginButton").click(function(){
       $("#form").show();
