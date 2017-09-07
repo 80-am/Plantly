@@ -33,13 +33,17 @@ public class DBController {
     public String signup() {
         return "signup";
     }
+    
+    @GetMapping("/about")
+	public String about() {
+		return "about";
+	}
 
     @PostMapping("/login")
-    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password)
-    {
+    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
         List<User> allUsers = DBConnection.getAllUsers();
-        for(int i =0; i<allUsers.size(); i++) {
-            if(allUsers.get(i).getEmail().equals(email)){
+        for (int i = 0; i < allUsers.size(); i++) {
+            if (allUsers.get(i).getEmail().equals(email)) {
                 model.addAttribute("info", "User with this email already exists");
                 return "login";
             }
@@ -52,6 +56,7 @@ public class DBController {
     public ModelAndView loggedin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
+
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
@@ -89,8 +94,7 @@ public class DBController {
     }
 
     @GetMapping("/plantinfo")
-    public ModelAndView plantinfo() {
-        Plant plant = DBConnection.getPlantByPlantSpecies("Aloe Vera");
+        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
@@ -105,3 +109,4 @@ public class DBController {
         return "redirect:/user";
     }
 }
+
