@@ -74,13 +74,9 @@ public class DBController {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/");
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession session, HttpServletResponse res) {
@@ -93,16 +89,10 @@ public class DBController {
         }
     }
 
-    @GetMapping("/plantinfo")
-
-    public ModelAndView plantinfo() {
-        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa"); // hard coded
+    @PostMapping("/plantinfo")
+    public ModelAndView plantinfo(@RequestParam String plantSpecies) {
+        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
         return new ModelAndView("plantinfo").addObject("plant", plant);
-    }
-
-    @GetMapping("/addplant")
-    public String addplant(){
-        return "addplant";
     }
 
     @PostMapping("/addUserPlant")
