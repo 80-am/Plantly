@@ -2,10 +2,8 @@ package com.example.plantly.Controller;
 
 import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
-import com.example.plantly.PlantlyApplication;
 import com.example.plantly.Repository.DBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +30,16 @@ public class DBController {
     public String signup() {
         return "signup";
     }
+    
+    @GetMapping("/about")
+	public String about() {
+		return "about";
+	}
 
     @PostMapping("/login")
     public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
         List<User> allUsers = DBConnection.getAllUsers();
-        System.out.println(allUsers);
+
 
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).getEmail().equals(email)) {
@@ -46,6 +49,7 @@ public class DBController {
         }
 
         DBConnection.addUser(email, firstname, lastname, password);
+
         return "login";
     }
 
@@ -93,4 +97,28 @@ public class DBController {
         Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
+
+    @GetMapping("/addplant")
+    public String addplant(){
+        return "addplant";
+    }
+
+    @PostMapping("/addUserPlant")
+    public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
+        String poison;
+        DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies);
+        if(plant.poisonous == 0){
+            poison = "no";
+        }else{
+            poison = "yes";
+        }
+        session.setAttribute("nickName", nickName);
+        session.setAttribute("plantSpecies", plantSpecies);
+        session.setAttribute("plantLight", plant.light);
+        session.setAttribute("waterDays", plant.daysUntilWatering);
+        session.setAttribute("poison", poison);
+        return "redirect:/user";
+    }
+
 }

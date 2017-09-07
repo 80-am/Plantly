@@ -52,21 +52,24 @@
 <h1>My Plants</h1>
 <p th:text="${session.user.firstname}"></p>
 
-<div >
+
+<div>
 </div>
 <table class="rwd-table">
     <tr>
-        <th>Plant</th>
+        <th>Nick name</th>
+        <th>Plant Species</th>
         <th>Light</th>
         <th>Water Needs</th>
         <th>Poisonous</th>
         <th>Remove</th>
     </tr>
     <tr>
-        <td data-th="Plant"><a href="plantinfo">Orchidaceae Phalaenopsis</a></td>
-        <td data-th="Light">Direct</td>
-        <td data-th="Water Needs">Every 5 days</td>
-        <td data-th="Poisonous">Yes</td>
+        <td data-th="Plant" th:text="${session.nickName}"></td>
+        <td data-th="Type" th:text="${session.plantSpecies}"></td>
+        <td data-th="Light" th:text="${session.plantLight}"></td>
+        <td data-th="Water Needs" th:text="${session.waterDays}"></td>
+        <td data-th="Poisonous" th:text="${session.poison}"></td>
         <td data-th="Remove">X</td>
     </tr>
 
