@@ -281,7 +281,7 @@ $('h1').lettering();
 
 /*  RANDOM MESSAGE ON HEADERS */
 
-const messages = ['grow and show', 'planting a better world', 'keep it in your plants', 'soil meets body', 'wet yo plants', 'remember your roots', 'use with caution', 'not enough thyme', 'drop ya pansies', 'cat need catnip'];
+const messages = ['grow and show', 'planting a better world', 'keep it in your plants', 'soil meets body', 'wet yo plants', 'remember your roots', 'use with caution', 'not enough thyme', 'drop ya pansies'];
 const randomIndex = Math.floor(Math.random()*messages.length);
 document.getElementById("randomHeader").innerHTML = messages[randomIndex];
 
