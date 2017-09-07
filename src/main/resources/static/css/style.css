@@ -345,3 +345,22 @@ textarea {
   text-align: right;
 }
 
+/*Glyphicons*/
+
+.glyphicon-red {
+  color: #8b0000;
+}
+.glyphicon-blue {
+  color: #042E7F;
+}
+.glyphicon-grey {
+  color: hsl(0, 0%, 55%);
+}
+
+.glyphicon-yellow {
+  color: hsl(60, 100%, 30%);
+}
+
+.glyphicon-green {
+  color: green;
+}
