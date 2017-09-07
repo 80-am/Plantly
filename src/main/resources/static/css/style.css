@@ -1,5 +1,4 @@
 body {
-  margin-top: 70px;
   background: #eee;
   color: #042505;
   font-family: 'Cantarell', sans-serif;
@@ -169,7 +168,6 @@ svg {
   transform: translateY(-50%);
 }
 /* LOGIN SIGN UP TABLE */
-
 
 *, *:before, *:after {
   box-sizing: border-box;
