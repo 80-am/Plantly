@@ -23,8 +23,9 @@ public class DBRepository implements PlantyDBRepository {
 
     @Autowired
     private DataSource dataSource;
-    
-   @Override
+
+
+    @Override
     public Plant getPlantByPlantSpecies (String plantSpecies){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Plants WHERE PlantSpecies = ?")){
@@ -32,21 +33,21 @@ public class DBRepository implements PlantyDBRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Plant plant = new Plant(rs.getString("PlantSpecies"),
-                                            rs.getString("PlantGenus"),
-                                            rs.getString("PlantInfo"),
-                                            rs.getString("Water"),
-                                            rs.getString("Tempature"),
-                                            rs.getString("Humidity"),
-                                            rs.getString("Flowering"),
-                                            rs.getString("Pests"),
-                                            rs.getString("Diseases"),
-                                            rs.getString("Soil"),
-                                            rs.getString("PotSize"),
-                                            rs.getInt("Poisonous"),
-                                            rs.getInt("DaysUntilWatering"),
-                                            rs.getString("Fertilizer"),
-                                            rs.getString("Light"),
-                                            rs.getInt("plantID"));
+                            rs.getString("PlantGenus"),
+                            rs.getString("PlantInfo"),
+                            rs.getString("Water"),
+                            rs.getString("Tempature"),
+                            rs.getString("Humidity"),
+                            rs.getString("Flowering"),
+                            rs.getString("Pests"),
+                            rs.getString("Diseases"),
+                            rs.getString("Soil"),
+                            rs.getString("PotSize"),
+                            rs.getInt("Poisonous"),
+                            rs.getInt("DaysUntilWatering"),
+                            rs.getString("Fertilizer"),
+                            rs.getString("Light"),
+                            rs.getInt("plantID"));
                     return plant;
                 }
             }catch(SQLException e){
@@ -63,7 +64,7 @@ public class DBRepository implements PlantyDBRepository {
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
+                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
                 ps.setInt(1, userId);
                 ps.setString(2, nickName);
                 ps.setString(3, photo);
@@ -104,7 +105,7 @@ public class DBRepository implements PlantyDBRepository {
     private User rsUser(ResultSet rs) throws SQLException {
         return new User(rs.getInt("UserId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
     }
-  
+
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT PlantID FROM Plants WHERE PlantSpecies = ?")) {

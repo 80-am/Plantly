@@ -37,13 +37,12 @@ public class DBController {
 	}
 
     @PostMapping("/login")
-    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password)
-    {
+    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
         List<User> allUsers = DBConnection.getAllUsers();
 
 
-        for(int i =0; i<allUsers.size(); i++) {
-            if(allUsers.get(i).getEmail().equals(email)){
+        for (int i = 0; i < allUsers.size(); i++) {
+            if (allUsers.get(i).getEmail().equals(email)) {
                 model.addAttribute("info", "User with this email already exists");
                 return "login";
             }
@@ -59,7 +58,8 @@ public class DBController {
 
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
-        if(userExists) {
+
+        if (userExists) {
             session.setAttribute("user", user);
             return new ModelAndView("userpage").addObject("user", user);
         }
@@ -92,9 +92,10 @@ public class DBController {
         }
     }
 
-    @GetMapping("/plantInfo")
-    public String plantInfo() {
-        return "plantInfo";
+    @GetMapping("/plantinfo")
+    public ModelAndView plantinfo() {
+        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
+        return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
     @GetMapping("/addplant")
