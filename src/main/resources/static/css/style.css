@@ -1,7 +1,7 @@
 body {
-  margin-top: 45px;
+  margin-top: 70px;
   background: #eee;
-  overflow: hidden;
+  color: #042505;
   font-family: 'Cantarell', sans-serif;
 
 }
@@ -12,6 +12,56 @@ body {
   text-align: center;
   color: #042505;
 }
+
+.content-area {
+  padding: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+.epic-about {
+  text-align: center;
+  margin: 35px;
+}
+
+#footer {
+  text-align: center;
+  margin: 35px;
+  font-size: x-small;
+}
+
+.epic-about h1 {
+  margin-bottom: 20px;
+}
+.col-dev-team {
+  margin: 10px;
+  padding: 15px;
+  color: #042505;
+  border-radius: 15px;
+  text-align: center;
+  width: 200px;
+  /*background-color: hsl(120, 61%, 70%);*/
+  display: inline-block;
+}
+
+.col-dev-team2 {
+  margin: 10px;
+  padding: 15px;
+  color: #042505;
+  border-radius: 15px;
+  text-align: center;
+  width: 200px;
+  /*background-color: hsl(120, 61%, 60%);*/
+  display: inline-block;
+}
+
+.img-flower {
+  margin-bottom: 15px;
+}
+
+
 
 * {
   box-sizing: border-box;

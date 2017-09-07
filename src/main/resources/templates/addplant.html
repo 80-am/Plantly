@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Plantly</title>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="/images/plantlyLogoBlack.png"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="chat">Chat</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="form">
+
+    <div class="tab-content">
+        <div id="signup">
+            <h2>Add your plant!</h2>
+
+            <form action="/addUserPlant" method="post">
+
+                <input type="hidden" th:value="${session.user.userId}" name="userId"></input>
+
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label>
+                            Plants nick name<span class="req"></span>
+                        </label>
+                        <input type="text" name="nickName" required="required" autocomplete="off"/>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>
+                            Plant species<span class="req"></span>
+                        </label>
+                        <input type="text" name="plantSpecies" required="required" autocomplete="off"/>
+                    </div>
+                </div>
+                <button type="submit" class="button button-block">Back</button>
+                <button type="submit" class="button button-block">Add Plant</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

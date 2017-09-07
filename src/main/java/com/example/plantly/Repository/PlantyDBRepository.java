@@ -7,7 +7,7 @@ public interface PlantyDBRepository {
 
     boolean addUser(String firstname, String lastname, String email, String password);
     Plant getPlantByPlantSpecies (String plantSpecies);
-    String addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies);
+    void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies);
     User getCurrentUser(String email, String password);
     boolean userExists(String email, String password);
 

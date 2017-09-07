@@ -2,19 +2,30 @@ package com.example.plantly.Domain;
 
 public class User {
 
+    private int userId;
     private String firstname;
     private String lastname;
     private String email;
     private String password;
 
-    public User(String firstname, String lastname, String email, String password) {
+   /* public User(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+
+    }*/
+
+
+
+    public User(int userId, String firstname, String lastname, String email, String password) {
+        this.userId = userId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+
     }
-
-
 
     // getters and setters
     public String getFirstname() {
@@ -48,4 +59,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+
 }
