@@ -2,6 +2,7 @@ package com.example.plantly.Repository;
 
 import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
+import com.example.plantly.Domain.UserPlant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -131,6 +132,37 @@ public class DBRepository implements PlantyDBRepository {
                 }
             }
             return null;
+    }
+
+    @Override
+    public List<UserPlant> getUserPlantsInfo(int userId) {
+        List<UserPlant> userPlantList = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, Light " +
+                     "FROM UsersPlants " +
+                     "JOIN Plants " +
+                     "ON UsersPlants.PlantID = Plants.PlantID " +
+                     "WHERE UserID = ?")) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    userPlantList.add(rsUserPlant(rs));
+                }
+            } catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return userPlantList;
+    }
+
+    public UserPlant rsUserPlant(ResultSet rs) throws SQLException{
+       return new UserPlant(rs.getString("NickName"),
+               rs.getString("PlantSpecies"),
+               rs.getString("Light"),
+               rs.getInt("DaysUntilWatering"),
+               rs.getString("Poisonous"));
     }
 
     @Override
