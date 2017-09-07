@@ -191,6 +191,7 @@ a {
 }
 a:hover {
   color: #179b77;
+  cursor: pointer;
 }
 
 .form {
