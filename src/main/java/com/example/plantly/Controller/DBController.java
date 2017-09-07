@@ -90,7 +90,7 @@ public class DBController {
 
     @GetMapping("/plantinfo")
     public ModelAndView plantinfo() {
-        Plant plant = DBConnection.getPlantByPlantSpecies("Philodendron Tatei");
+        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 }
