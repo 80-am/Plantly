@@ -12,13 +12,13 @@ public class Plant {
     public String diseases;
     public String soil;
     public String potSize;
-    public int poisonous;
+    public String poisonous;
     public int daysUntilWatering;
     public String fertilizer;
     public String light;
     public int plantId;
 
-    public Plant(String plantSpecies, String plantGenus, String plantInfo, String water, String tempature, String humidity, String flowering, String pests, String diseases, String soil, String potSize, int poisonous, int daysUntilWatering, String fertilizer, String light, int plantId) {
+    public Plant(String plantSpecies, String plantGenus, String plantInfo, String water, String tempature, String humidity, String flowering, String pests, String diseases, String soil, String potSize, String poisonous, int daysUntilWatering, String fertilizer, String light, int plantId) {
         this.plantSpecies = plantSpecies;
         this.plantGenus = plantGenus;
         this.plantInfo = plantInfo;

@@ -43,7 +43,7 @@ public class DBRepository implements PlantyDBRepository {
                             rs.getString("Diseases"),
                             rs.getString("Soil"),
                             rs.getString("PotSize"),
-                            rs.getInt("Poisonous"),
+                            rs.getString("Poisonous"),
                             rs.getInt("DaysUntilWatering"),
                             rs.getString("Fertilizer"),
                             rs.getString("Light"),
