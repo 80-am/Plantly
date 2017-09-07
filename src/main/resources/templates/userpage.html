@@ -54,6 +54,9 @@
 
 
 <div>
+    <form action="/addplant" method="get">
+        <input type="submit" class="button button-block" value="Add a plant"/>
+    </form>
 </div>
 <table class="rwd-table">
     <tr>
@@ -64,12 +67,12 @@
         <th>Poisonous</th>
         <th>Remove</th>
     </tr>
-    <tr>
-        <td data-th="Plant" th:text="${session.nickName}"></td>
-        <td data-th="Type" th:text="${session.plantSpecies}"></td>
-        <td data-th="Light" th:text="${session.plantLight}"></td>
-        <td data-th="Water Needs" th:text="${session.waterDays}"></td>
-        <td data-th="Poisonous" th:text="${session.poison}"></td>
+    <tr th:each="plantInfo : ${userPlansList}">
+        <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
+        <td data-th="Type"><a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}" ></td>
+        <td data-th="Light" th:text="${plantInfo.light}"></td>
+        <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+        <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
         <td data-th="Remove">X</td>
     </tr>
 
