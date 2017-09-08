@@ -160,7 +160,7 @@ svg {
   color: #ffffff;
 }
 
-.tab-content > div:last-child {
+.tab-content > div:first-child {
   display: none;
 }
 
