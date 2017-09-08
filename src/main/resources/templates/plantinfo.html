@@ -26,13 +26,13 @@
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="about">plants</a>
+          <a class="nav-link" href="/user">plants</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about">about</a>
+          <a class="nav-link" href="/about">about</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/signup">log out</a>
+          <a class="nav-link" th:text="${session.user.firstname}" href="/"></a>
         </li>
       </ul>
     </div>
