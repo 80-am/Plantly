@@ -16,19 +16,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:text="${session.user.firstname}" href="user"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about">about</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="chat">Chat</a>
+                    <a class="nav-link" href="user">back</a>
                 </li>
             </ul>
         </div>
@@ -62,10 +57,10 @@
                 </div>
                 <button type="submit" class="button button-block">Back</button>
                 <button type="submit" class="button button-block">Add Plant</button>
-
             </form>
         </div>
     </div>
 </div>
+<p th:if="${session.warning} != 'ok'" th:text="${session.warning}"></p>
 </body>
 </html>

@@ -97,9 +97,14 @@ public class DBController {
 
     @PostMapping("/addUserPlant")
     public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
-        DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
-
-        return "redirect:/user";
+        session.setAttribute("warning", "ok");
+        String info = DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+        if(info.equals("ok")){
+            return "redirect:/user";
+        }
+        System.out.println(info);
+        session.setAttribute("warning", info);
+        return "addplant";
     }
 }
 
