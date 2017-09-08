@@ -10,10 +10,12 @@ public interface PlantyDBRepository {
 
     boolean addUser(String firstname, String lastname, String email, String password);
     Plant getPlantByPlantSpecies (String plantSpecies);
-    String addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies);
+    void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies);
     User getCurrentUser(String email, String password);
     boolean userExists(String email, String password);
     List<UserPlant> getUserPlantsInfo(int userId);
+    boolean nickNameAlreadyExists(String nickName, int userId);
+    void changePassword(int userId, String newPassword);
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }

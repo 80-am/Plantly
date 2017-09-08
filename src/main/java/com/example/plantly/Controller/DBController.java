@@ -58,7 +58,7 @@ public class DBController {
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
         model.addAttribute("info", "Wrong password or email try again");
-        return new ModelAndView("login");
+        return new ModelAndView("/");
 
     }
 
@@ -72,6 +72,29 @@ public class DBController {
         return new ModelAndView("redirect:/");
     }
 
+    @GetMapping("/changePassword")
+    public String passwordChangeHTML(){
+        return "changePassword";
+    }
+
+
+    @PostMapping("/passwordVerification")
+    public String /*ModelAndView*/ passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
+        if(session.getAttribute("user") != null) {
+            User user = (User) session.getAttribute("user");
+            if (user.getPassword().equals(oldPassword)) {
+                DBConnection.changePassword(user.getUserId(), newPassword);
+                model.addAttribute("info", "Password has been changed");
+                return "changePassword";
+                //return new ModelAndView("changePassword").addObject("info", "Password has been changed");
+            } else {
+                model.addAttribute("info", "Wrong password!");
+                return "changePassword";
+                //return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
+            }
+        }
+        return "redirect:/";
+    }
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession session, HttpServletResponse res) {
@@ -98,12 +121,12 @@ public class DBController {
     @PostMapping("/addUserPlant")
     public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         session.setAttribute("warning", "ok");
-        String info = DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
-        if(info.equals("ok")){
+        boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
+        if(!nickNameExists){
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
             return "redirect:/user";
         }
-        System.out.println(info);
-        session.setAttribute("warning", info);
+        session.setAttribute("warning", "Nickname already exists!");
         return "addplant";
     }
 }

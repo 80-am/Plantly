@@ -37,13 +37,15 @@
                     <a class="nav-link" href="about">about</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:text="${session.user.firstname}" data-toggle="dropdown">
-                        <span class="caret"></span></a>
+                    <a class="nav-link" th:text="${session.user.firstname}" data-toggle="dropdown"></a>
                         <ul class="dropdown-menu">
                             <li><a href="changePassword">change password</a></li>
                             <li><a href="getFriends">friends</a></li>
                             <li><a href="facebook">facebook</a></li>
                         </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="changePassword">change password</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:text="logout" href="logout"></a>
