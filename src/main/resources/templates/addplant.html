@@ -3,6 +3,37 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Plantly</title>
+    <script>
+        $( function() {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+        } );
+    </script>
 </head>
 <body>
 
@@ -57,7 +88,7 @@
                         <label>
                             Plant species<span class="req"></span>
                         </label>
-                        <input type="text" name="plantSpecies" required="required" autocomplete="off"/>
+                        <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
                     </div>
                 </div>
                 <button type="submit" class="button button-block">Back</button>
@@ -67,5 +98,10 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </body>
 </html>
