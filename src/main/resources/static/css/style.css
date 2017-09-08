@@ -1,80 +1,32 @@
+/*CSS*/
+
+/*general css*/
+
 body {
-  margin-top: 70px;
   background: #eee;
   color: #042505;
   font-family: 'Cantarell', sans-serif;
 }
 
-.welcomeHeader {
-  padding-top: 2em;
-  font-size: 4em;
-  text-align: center;
-  color: #042505;
-
-}
-
-.content-area {
-  padding: 15px;
+* {
+  box-sizing: border-box;
 }
 
 .center {
   text-align: center;
 }
 
-.epic-about {
-  text-align: center;
-  margin: 35px;
+.bg-light {
+  background-color: #eee !important;
 }
 
-#footer {
-  text-align: center;
-  margin: 35px;
-  font-size: x-small;
-}
+/*index.html*/
 
-.epic-about h1 {
-  margin-bottom: 20px;
-}
-.col-dev-team {
-  margin: 10px;
-  padding: 15px;
+.welcomeHeader {
+  padding-top: 2em;
+  font-size: 4em;
+  text-align: center;
   color: #042505;
-  border-radius: 15px;
-  text-align: center;
-  width: 200px;
-  /*background-color: hsl(120, 61%, 70%);*/
-  display: inline-block;
-}
-
-.col-dev-team2 {
-  margin: 10px;
-  padding: 15px;
-  color: #042505;
-  border-radius: 15px;
-  text-align: center;
-  width: 200px;
-  /*background-color: hsl(120, 61%, 60%);*/
-  display: inline-block;
-}
-
-.img-flower {
-  margin-bottom: 15px;
-}
-
-
-
-* {
-  box-sizing: border-box;
-}
-
-.logo {
-  text-align: left;
-  width: 5%;
-}
-
-.loginButton {
-  text-align: right;
-  padding-right: 2em;
 }
 
 svg {
@@ -84,9 +36,6 @@ svg {
   position: absolute;
   z-index:-1;
 }
-
-
-/* THIS WILL MAkE THE TITLE FADE IN ON FIRST PAGE */
 
 @keyframes charFade {
   from {
@@ -138,59 +87,29 @@ svg {
   animation-fill-mode: forwards;
 }
 
-.bg-light {
-  background-color: #eee !important;
-}
-
-/*PLANT INFO PAGE*/
-
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-#circle-shape-example {
-  font-family: Open Sans, sans-serif;
-  margin: 2rem;
-}
-#circle-shape-example p {
-  line-height: 1.8;
-}
-#circle-shape-example .curve {
-  width: 33%; height: auto;
-  min-width: 150px;
-  float: left;
-  margin-right:2rem;
-  border-radius: 50%;
-  -webkit-shape-outside:circle();
-  shape-outside:circle();
-
-}
-
-#aboutPlant {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
 /* LOGIN SIGN UP TABLE */
 
-
-*, *:before, *:after {
+.form *, *:before, *:after {
   box-sizing: border-box;
 }
 
-html {
+.form html {
   overflow-y: scroll;
 }
 
-a {
+.form a {
   text-decoration: none;
   color: #1ab188;
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
-a:hover {
+
+.form a:hover {
   color: #179b77;
+  cursor: pointer;
 }
 
 .form {
-
   display: none;
   background: rgba(19, 35, 47, 0.9);
   padding: 40px;
@@ -205,11 +124,13 @@ a:hover {
   padding: 0;
   margin: 0 0 40px 0;
 }
+
 .tab-group:after {
   content: "";
   display: table;
   clear: both;
 }
+
 .tab-group li a {
   display: block;
   text-decoration: none;
@@ -224,27 +145,29 @@ a:hover {
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
+
 .tab-group li a:hover {
   background: #179b77;
   color: #ffffff;
 }
+
 .tab-group .active a {
   background: #1ab188;
   color: #ffffff;
 }
 
-.tab-content > div:last-child {
+.tab-content > div:first-child {
   display: none;
 }
 
-h2 {
+.form h2 {
   text-align: center;
   color: #eee;
   font-weight: 300;
   margin: 0 0 20px;
 }
 
-label {
+.form label {
   position: absolute;
   -webkit-transform: translateY(6px);
   transform: translateY(6px);
@@ -256,26 +179,26 @@ label {
   pointer-events: none;
   font-size: 22px;
 }
-label .req {
+.form label.req {
   margin: 2px;
   color: #1ab188;
 }
 
-label.active {
+.form label.active {
   -webkit-transform: translateY(50px);
   transform: translateY(50px);
   left: 2px;
   font-size: 14px;
 }
-label.active .req {
+.form label.active.req {
   opacity: 0;
 }
 
-label.highlight {
+.form label.highlight {
   color: #ffffff;
 }
 
-input, textarea {
+.form input, textarea {
   font-size: 22px;
   display: block;
   width: 100%;
@@ -289,12 +212,12 @@ input, textarea {
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
-input:focus, textarea:focus {
+.form input:focus, textarea:focus {
   outline: 0;
   border-color: #1ab188;
 }
 
-textarea {
+.form textarea {
   border: 2px solid #a0b3b0;
   resize: vertical;
 }
@@ -318,7 +241,7 @@ textarea {
   margin: 0;
 }
 
-.button {
+.form .button {
   border: 0;
   outline: none;
   border-radius: 0;
@@ -333,11 +256,11 @@ textarea {
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
-.button:hover, .button:focus {
+.form .button:hover, .button:focus {
   background: #179b77;
 }
 
-.button-block {
+.form .button-block {
   display: block;
   width: 100%;
 }
@@ -347,3 +270,84 @@ textarea {
   text-align: right;
 }
 
+/*about.html*/
+.content-area {
+  padding: 15px;
+}
+
+.epic-about {
+  text-align: center;
+  margin: auto;
+  width: 70%;
+}
+
+.epic-about h1 h2 {
+  margin-bottom: 20px;
+}
+
+#footer {
+  text-align: center;
+  margin: 35px;
+  font-size: x-small;
+}
+
+.col-dev-team {
+  margin: 10px;
+  padding: 15px;
+  color: #042505;
+  border-radius: 15px;
+  text-align: center;
+  width: 200px;
+  /*background-color: hsl(120, 61%, 70%);*/
+  display: inline-block;
+}
+
+.img-flower {
+  margin-bottom: 15px;
+}
+
+/*plantinfo.html*/
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+#circle-shape-example {
+  font-family: Open Sans, sans-serif;
+  margin: 2rem;
+}
+#circle-shape-example p {
+  line-height: 1.8;
+}
+#circle-shape-example .curve {
+  width: 33%; height: auto;
+  min-width: 150px;
+  float: left;
+  margin-right:2rem;
+  border-radius: 50%;
+  -webkit-shape-outside:circle();
+  shape-outside:circle();
+}
+
+#aboutPlant {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*glyphicons*/
+
+.glyphicon-red {
+  color: #8b0000;
+}
+.glyphicon-blue {
+  color: #042E7F;
+}
+.glyphicon-grey {
+  color: hsl(0, 0%, 55%);
+}
+
+.glyphicon-yellow {
+  color: hsl(60, 100%, 30%);
+}
+
+.glyphicon-green {
+  color: green;
+}

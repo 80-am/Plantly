@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <link rel="icon" type="image/ico" href="images/favIcon.ico"/>
   <link href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet"/>
@@ -18,9 +18,9 @@
 <body>
 
 <!-- Nav -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
   <div class="container">
-    <a class="navbar-brand" href="/"><img src="/images/plantlyLogoBlack.png"/></a>
+    <a class="navbar-brand" href="/user"><img src="/images/plantlyLogoBlack.png"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -32,17 +32,17 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">home</a>
-        </li>
         <li class="nav-item active">
           <a class="nav-link" href="about">about</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">sign up </a>
+        <li class="nav-item active">
+          <a class="nav-link" href="user">home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="login">login</a>
+          <a class="nav-link" href="user" id="loginButton" th:if="${session.user}" th:text="${session.user.firstname}"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout" th:if="${session.user}" th:text="logout"></a>
         </li>
       </ul>
     </div>
@@ -54,17 +54,19 @@
 
     <div class="col-md-12 content-area">
       <div class="epic-about">
-        <h1>plantly</h1>
-        <p>Plantly. Whats left to say? It's Plantly - The best way to keep track of your plants.</p>
+        <h2>Plantly my dear, I DO give a damn. </h2>
+        <p>Caring for plants, both indoors and outdoors, is important in maintaining their health and appearance.
+          Whether you want to keep your flowers in bloom longer or just want to save a sickly
+          looking plant, don't worry! Plantly is here to help.</p>
+        <p>You'll never forget to water your plants again. </p>
       </div>
-      <h1 class="epic-about">team plantly</h1>
       <div class="center">
         <div class="col-dev-team">
           <img class="img-flower" src="/images/flowers/adam.png" height="250" width="125"/>
           <h3>Adam Berntsson</h3>
           <h5>Chief <br/>Plantanalyst</h5>
         </div>
-        <div class="col-dev-team2">
+        <div class="col-dev-team">
           <img class="img-flower" src="/images/flowers/niklas.png" height="250" width="125"/>
           <h3>Niklas Johansson</h3>
           <h5>Senior <br/> Developlanter</h5>
@@ -74,7 +76,7 @@
           <h3>Sebastian Schelin</h3>
           <h5>Lead <br/>Planter</h5>
         </div>
-        <div class="col-dev-team2">
+        <div class="col-dev-team">
           <img class="img-flower" src="/images/flowers/micke.png" height="250" width="125"/>
           <h3>Michael Kulekci</h3>
           <h5>Senior <br/> Plant Collector</h5>
@@ -84,7 +86,7 @@
           <h3>Joakim Johnsson</h3>
           <h5>Front-Plant <br/> Proplanter</h5>
         </div>
-        <div class="col-dev-team2">
+        <div class="col-dev-team">
           <img class="img-flower" src="/images/flowers/farhad.png" height="250" width="125"/>
           <h3>Farkhod Kholbutayev</h3>
           <h5>Back-Plant <br/> Proplanter</h5>

@@ -2,6 +2,9 @@ package com.example.plantly.Repository;
 
 import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
+import com.example.plantly.Domain.UserPlant;
+
+import java.util.List;
 
 public interface PlantyDBRepository {
 
@@ -10,6 +13,9 @@ public interface PlantyDBRepository {
     void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies);
     User getCurrentUser(String email, String password);
     boolean userExists(String email, String password);
+    List<UserPlant> getUserPlantsInfo(int userId);
+    boolean nickNameAlreadyExists(String nickName, int userId);
+    void changePassword(int userId, String newPassword);
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }

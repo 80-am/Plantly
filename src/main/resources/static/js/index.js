@@ -281,13 +281,27 @@ $('h1').lettering();
 
 /*  RANDOM MESSAGE ON HEADERS */
 
-const messages = ['grow and show', 'planting a better world', 'keep it in your plants', 'soil meets body', 'wet yo plants', 'remember your roots', 'use with caution', 'not enough thyme', 'drop ya pansies', 'cat need catnip'];
+const messages = ['grow and show', 'planting a better world', 'keep it in your plants', 'soil meets body', 'wet yo plants', 'remember your roots', 'use with caution', 'not enough thyme', 'drop ya pansies'];
 const randomIndex = Math.floor(Math.random()*messages.length);
 document.getElementById("randomHeader").innerHTML = messages[randomIndex];
+
+/* HIDE AND SHOW LOGIN FORM */
 
 $(document).ready(function(){
     $("#loginButton").click(function(){
       $("#form").show();
         $("#randomHeader").hide();
     });
+});
+
+$(document).mouseup(function (e)
+{
+    var container = $("#form"); // YOUR CONTAINER SELECTOR
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+        container.fadeOut();
+        $("#randomHeader").fadeIn();
+    }
 });

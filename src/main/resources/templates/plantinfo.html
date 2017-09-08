@@ -26,13 +26,13 @@
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="about">plants</a>
+          <a class="nav-link" href="/user">plants</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about">about</a>
+          <a class="nav-link" href="/about">about</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/signup">log out</a>
+          <a class="nav-link" th:text="${session.user.firstname}" href="/"></a>
         </li>
       </ul>
     </div>
@@ -49,9 +49,46 @@
    </p>
         <p th:text="${plant.water}">
         </p>
-  </div>
+
+        <p>
+          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-certificate glyphicon-grey" aria-hidden="true"></span>
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
+        </p>
+
 </div>
   </div>
+</div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

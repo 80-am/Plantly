@@ -2,11 +2,14 @@ package com.example.plantly.Controller;
 
 import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
+import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
+import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,60 +28,72 @@ public class DBController {
     public String homepage() {
         return "index";
     }
-
-    @GetMapping("/signup")
-    public String signup() {
-        return "signup";
-    }
     
     @GetMapping("/about")
 	public String about() {
 		return "about";
 	}
 
-    @PostMapping("/login")
+    @PostMapping("/signup")
     public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
         List<User> allUsers = DBConnection.getAllUsers();
-
-
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).getEmail().equals(email)) {
                 model.addAttribute("info", "User with this email already exists");
-                return "login";
+                return "redirect:/";
             }
         }
-
         DBConnection.addUser(email, firstname, lastname, password);
-
-        return "login";
+        return "redirect:/";
     }
 
     @PostMapping("/user")
     public ModelAndView loggedin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
-
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
 
-        if (userExists) {
+        if(userExists) {
+            List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
-            return new ModelAndView("userpage").addObject("user", user);
+            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
         model.addAttribute("info", "Wrong password or email try again");
-        return new ModelAndView("login");
+        return new ModelAndView("/");
 
     }
 
     @GetMapping("/user")
     public ModelAndView userpage(HttpSession session) {
         if (session.getAttribute("user") != null) {
-            return new ModelAndView("userpage");
+            User user = (User)session.getAttribute("user");
+            List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
+            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/");
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("/changePassword")
+    public String passwordChangeHTML(){
+        return "changePassword";
+    }
+
+
+    @PostMapping("/passwordVerification")
+    public String /*ModelAndView*/ passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
+        if(session.getAttribute("user") != null) {
+            User user = (User) session.getAttribute("user");
+            if (user.getPassword().equals(oldPassword)) {
+                DBConnection.changePassword(user.getUserId(), newPassword);
+                model.addAttribute("info", "Password has been changed");
+                return "changePassword";
+                //return new ModelAndView("changePassword").addObject("info", "Password has been changed");
+            } else {
+                model.addAttribute("info", "Wrong password!");
+                return "changePassword";
+                //return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
+            }
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
@@ -92,9 +107,9 @@ public class DBController {
         }
     }
 
-    @GetMapping("/plantinfo")
-    public ModelAndView plantinfo() {
-        Plant plant = DBConnection.getPlantByPlantSpecies("Monstera Deliciosa");
+    @GetMapping("/plantinfo/{plantSpecies}")
+    public ModelAndView plantinfo(@PathVariable String plantSpecies) {
+        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
@@ -105,20 +120,14 @@ public class DBController {
 
     @PostMapping("/addUserPlant")
     public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
-        String poison;
-        DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
-        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies);
-        if(plant.poisonous == 0){
-            poison = "no";
-        }else{
-            poison = "yes";
+        session.setAttribute("warning", "ok");
+        boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
+        if(!nickNameExists){
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+            return "redirect:/user";
         }
-        session.setAttribute("nickName", nickName);
-        session.setAttribute("plantSpecies", plantSpecies);
-        session.setAttribute("plantLight", plant.light);
-        session.setAttribute("waterDays", plant.daysUntilWatering);
-        session.setAttribute("poison", poison);
-        return "redirect:/user";
+        session.setAttribute("warning", "Nickname already exists!");
+        return "addplant";
     }
-
 }
+
