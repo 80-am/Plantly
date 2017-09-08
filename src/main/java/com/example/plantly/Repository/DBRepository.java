@@ -61,7 +61,7 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     @Override
-    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
+    public String addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
@@ -72,8 +72,10 @@ public class DBRepository implements PlantyDBRepository {
                 ps.setInt(4, plantId);
                 ps.executeUpdate();
             } catch (SQLException e) {
+                return "Plant nick name already exists!";
             }
         }
+        return "ok";
     }
 
     @Override
