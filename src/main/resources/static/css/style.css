@@ -12,18 +12,34 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: #042505;
+  font-weight: bolder;
+}
+
+a:hover {
+  color: hsl(122, 80%, 30%);
+}
+a:focus {
+  color: hsl(122, 80%, 2%);
+}
+
 .center {
   text-align: center;
 }
 
 .bg-light {
-  background-color: #eee !important;
+  background-color: #eee;
 }
+
+
 
 /*index.html*/
 
 .welcomeHeader {
-  padding-top: 2em;
+  background-color: #eee;
+  padding: 20px;
+  border-radius: 10px;
   font-size: 4em;
   text-align: center;
   color: #042505;
@@ -355,3 +371,28 @@ svg {
 .glyphicon-green {
   color: green;
 }
+
+.navbar-toggle .icon-bar {
+  color: #042505;
+  background-color: #fff;
+}
+
+.navbar-toggle {
+  background-color: #ddd;
+}
+
+
+@media (min-width: 450px) {
+  .navbar {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .nav > li > a {
+    text-align: right;
+    margin-right: 20px;
+  }
+
+}
+
+
