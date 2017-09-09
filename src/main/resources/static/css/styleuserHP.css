@@ -78,3 +78,16 @@ h1 {
 .rwd-table th, .rwd-table td:before {
     color: #dd5;
 }
+
+#my-plantly-table a {
+    color: hsl(110, 87%, 35%);
+    font-weight: bolder;
+}
+
+#my-plantly-table a:hover {
+    color: hsl(110, 87%, 55%);
+    text-decoration: none;
+}
+#my-plantly-table a:focus {
+    color: hsl(110, 87%, 55%);
+}

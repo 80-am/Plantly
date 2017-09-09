@@ -1,103 +1,117 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <link rel="icon" type="image/ico" href="images/favIcon.ico"/>
-  <link href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet"/>
-  <meta charset="utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>PLANTLY</title>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
+    <head>
+        <link rel="icon" type="image/ico" href="images/favIcon.ico"/>
+        <link href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<!-- Nav -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/"><img src="/images/plantlyLogoBlack.png"/></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
+        <title>PLANTINFO | PLANTLY</title>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/user">plants</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">about</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:text="${session.user.firstname}" href="/"></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="/css/style.css"/>
+        <script src="/bootstrap/js/bootstrap.js"></script>
+    </head>
+    <body>
 
-<div class="container-fluid" id="aboutPlant">
-  <div class="row ">
-    <div class="col-md-9 vcenter">
-      <div id="circle-shape-example">
-  <img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>
-  <h1 th:text="${plant.plantSpecies}"></h1>
-  <p th:text="${plant.plantInfo}">
-   </p>
-        <p th:text="${plant.water}">
-        </p>
+    <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"><img src="/images/plantlyLogoBlack.png" height="31" width="117"/></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">home</a></li>
+                        <li><a href="/about">about</a></li>
+                        <li><a class="nav-link" id="loginButton" th:unless="${session.user}" th:text="'log in'"></a></li>
+                        <!-- Dropdown -->
+                        <li class="dropdown">
+                            <a href="user" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"
+                               th:if="${session.user}" th:text="${session.user.firstname} + ' &dtrif; ' "></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="user">
+                                    <span class="glyphicon glyphicon-grain" aria-hidden="true"></span> | myplantly</a>
+                                </li>
+                                <li><a href="logout">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> | log out</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">
+                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> | change password</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- Navbar-collapse -->
+            </div><!-- Container-fluid -->
+        </nav>
 
-        <p>
-          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
-        </p>
-        <p>
-          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
-        </p>
-        <p>
-          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
-        </p>
-        <p>
-          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-certificate glyphicon-grey" aria-hidden="true"></span>
-        </p>
-        <p>
-          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
-        </p>
+    <!--Main content-->
 
-</div>
-  </div>
-</div>
-</div>
+        <div class="container-fluid" id="aboutPlant">
+            <div class="row ">
+                <div class="col-md-9 vcenter">
+                    <div id="circle-shape-example">
+                        <img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>
+                        <h1 th:text="${plant.plantSpecies}"></h1>
+                        <p th:text="${plant.plantInfo}"></p>
+                        <p th:text="${plant.water}"></p>
+                        <p>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-certificate glyphicon-grey" aria-hidden="true"></span>
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js'></script>
-<script src="/js/index.js"></script>
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js'></script>
+        <script src="/js/index.js"></script>
+        <script src="/js/table.js"></script>
+    </body>
 </html>
