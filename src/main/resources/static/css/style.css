@@ -387,10 +387,25 @@ svg {
     padding-left: 10%;
     padding-right: 10%;
   }
+  .content-padding {
+    padding-right: 12%;
+    padding-left: 12%;
+  }
 
-  .nav > li > a {
+
+}
+@media (max-width: 450px) {
+  .navbar {
+    padding-right: 5%;
+  }
+  .content-padding {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .navbar-nav .open .dropdown-menu {
+    float: right;
     text-align: right;
-    margin-right: 20px;
   }
 }
 
@@ -414,6 +429,19 @@ svg {
   color: hsl(110, 87%, 35%);
   text-decoration: none;
   background-color: transparent;
+}
+
+.nav > li > a {
+  text-align: right;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.navbar {
+  padding-top: 10px;
 }
 
 

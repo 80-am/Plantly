@@ -47,12 +47,9 @@
 }
 
 body {
-    padding: 8% ;
     font-family: Montserrat, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    color: #444;
-    background: #eee;
 }
 
 h1 {
