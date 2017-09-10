@@ -16,6 +16,7 @@ public interface PlantyDBRepository {
     List<UserPlant> getUserPlantsInfo(int userId);
     boolean nickNameAlreadyExists(String nickName, int userId);
     void changePassword(int userId, String newPassword);
+    List<String> getPlantName();
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }

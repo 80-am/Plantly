@@ -88,6 +88,23 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
+    @Override
+    public List<String> getPlantName() {
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT PlantSpecies FROM [Plants]")) {
+            List<String> plants = new ArrayList<>();
+            while (rs.next()) plants.add(rsPlants(rs));
+            return plants;
+        } catch (SQLException e) {
+            throw new PlantyRepositoryException(e);
+        }
+    }
+
+    private String rsPlants(ResultSet rs) throws SQLException {
+        return new String(rs.getString("PlantSpecies"));
+    }
+
 
     @Override
     public Plant getPlantByPlantSpecies (String plantSpecies){
