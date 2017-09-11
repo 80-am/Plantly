@@ -64,28 +64,23 @@
     <div class="row">
         <div class="col-md-12 content-area content-padding">
 
-
             <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
                 <h2>Add Plant</h2>
                 <form action="/addUserPlant" method="post">
-
                     <input type="hidden" th:value="${session.user.userId}" name="userId"/>
-
-
                     <div class="field-wrap">
                         <label>
                             Plant Nickname: <span class="req"></span>
                         </label>
                         <input type="text" name="nickName" required="required" autocomplete="off"/>
                     </div>
-
                     <div class="field-wrap">
                         <label>
                             Plant Species: <span class="req"></span>
                         </label>
                         <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
                     </div>
-                    <button type="submit" class="button button-block">Add Plant</button>
+                    <button type="submit" class="button button-block">Add</button>
                 </form>
             </div>
             <div class="col-md-1"></div>
