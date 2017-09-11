@@ -55,52 +55,53 @@
                             </ul>
                         </li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+                </li>
 
-    <!--Översiktstabell över de plantor en användare har -->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
-    <!--Main content-->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12 content-area content-padding">
-
-                        <h1>My Plants</h1>
-
-                        <form action="/addplant" method="get">
-                            <input type="submit" class="button button-block" value="Add a plant"/>
-                        </form>
+<!--Översiktstabell över de plantor en användare har -->
 
 
-                        <table id="my-plantly-table" class="rwd-table">
-                            <tr>
-                                <th>Nick name</th>
-                                <th>Plant Species</th>
-                                <th>Light</th>
-                                <th>Water Needs</th>
-                                <th>Poisonous</th>
-                                <th>Remove</th>
-                            </tr>
 
-                            <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
-                            <tr th:each="plantInfo : ${userPlansList}">
-                                <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
-                                <td data-th="Type">
-                                    <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
-                                       th:text="${plantInfo.plantSpecies}"></a>
-                                </td>
-                                <td data-th="Light" th:text="${plantInfo.light}"></td>
-                                <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-                                <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
-                                <td data-th="Remove">
-                                    <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-            </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 content-area content-padding">
+
+            <h1>My Plants</h1>
+
+            <form action="/addplant" method="get">
+                <input type="submit" class="button button-block" value="Add a plant"/>
+            </form>
+
+
+            <table class="rwd-table">
+                <tr>
+                    <th>Nick name</th>
+                    <th>Plant Species</th>
+                    <th>Water Needs</th>
+                    <th>Poisonous</th>
+                    <th>Remove</th>
+                </tr>
+
+                <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
+                <tr th:each="plantInfo : ${userPlansList}">
+                    <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
+                    <td data-th="Type">
+                        <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
+                           th:text="${plantInfo.plantSpecies}"></a>
+                    </td>
+                    <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+                    <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
+                    <td data-th="Remove">X</td>
+                </tr>
+            </table>
         </div>
+    </div>
+</div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/bootstrap/js/bootstrap.min.js"></script>
