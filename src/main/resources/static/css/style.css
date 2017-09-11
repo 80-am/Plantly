@@ -32,14 +32,10 @@ a:focus {
   background-color: #eee;
 }
 
-
-
 /*index.html*/
 
 .welcomeHeader {
-  background-color: #eee;
   padding: 20px;
-  border-radius: 10px;
   font-size: 4em;
   text-align: center;
   color: #20221D;
@@ -293,23 +289,19 @@ svg {
 .content-area {
   padding: 15px;
 }
-
 .epic-about {
   text-align: center;
   margin: auto;
   width: 70%;
 }
-
 .epic-about h1 h2 {
   margin-bottom: 20px;
 }
-
 #footer {
   text-align: center;
   margin: 35px;
   font-size: x-small;
 }
-
 .col-dev-team {
   margin: 10px;
   padding: 15px;
@@ -317,10 +309,8 @@ svg {
   border-radius: 15px;
   text-align: center;
   width: 200px;
-  /*background-color: hsl(120, 61%, 70%);*/
   display: inline-block;
 }
-
 .img-flower {
   margin-bottom: 15px;
 }
@@ -354,7 +344,7 @@ svg {
 /*glyphicons*/
 
 .glyphicon-red {
-  color: #8b0000;
+  color: #ff0000;
 }
 .glyphicon-blue {
   color: #042E7F;
@@ -371,45 +361,17 @@ svg {
   color: #37EF11;
 }
 
+/*Navbar*/
+
 .navbar-toggle .icon-bar {
   color: #20221D;
   background-color: #fff;
 }
 
 .navbar-toggle {
-  background-color: #ddd;
+  background-color: transparent;
 }
-
-
-@media (min-width: 450px) {
-  .navbar {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
-  .content-padding {
-    padding-right: 12%;
-    padding-left: 12%;
-  }
-
-
-}
-@media (max-width: 450px) {
-  .navbar {
-    padding-right: 5%;
-  }
-  .content-padding {
-    padding-right: 5%;
-    padding-left: 5%;
-  }
-
-  .navbar-nav .open .dropdown-menu {
-    float: right;
-    text-align: right;
-  }
-}
-
 .dropdown-menu {
-
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, .15);
@@ -442,5 +404,31 @@ svg {
 .navbar {
   padding-top: 10px;
 }
+
+@media (min-width: 450px) {
+  .navbar {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  .content-padding {
+    padding-right: 12%;
+    padding-left: 12%;
+  }
+
+}
+@media (max-width: 450px) {
+  .navbar {
+    padding-right: 5%;
+  }
+  .content-padding {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+  .navbar-nav .open .dropdown-menu {
+    float: right;
+    text-align: right;
+  }
+}
+
 
 
