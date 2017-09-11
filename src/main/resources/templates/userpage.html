@@ -97,6 +97,7 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Water</th>
+
                         <th>Poisonous</th>
                         <th>Remove</th>
                     </tr>
@@ -112,6 +113,7 @@
                         <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span></a>
+
                         </td>
                     </tr>
                 </table>
