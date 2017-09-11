@@ -93,7 +93,7 @@
                     </td>
                     <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
                     <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
-                    <td data-th="Remove">X</td>
+                    <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">X</a></td>
                 </tr>
             </table>
         </div>
@@ -107,5 +107,6 @@
         <script src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js'></script>
         <script src="/js/index.js"></script>
         <script src="/js/table.js"></script>
+        <script src="/js/autocomplete.js"></script>
     </body>
 </html>

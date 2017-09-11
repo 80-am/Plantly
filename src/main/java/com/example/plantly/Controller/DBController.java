@@ -4,6 +4,7 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
+import com.example.plantly.Repository.PlantyDBRepository;
 import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -132,5 +133,14 @@ public class DBController {
     public List<String> getData(){
         return DBConnection.getPlantName();
     }
+
+    @GetMapping("/deletePlant/{nickName}")
+    public String deletePlant(@PathVariable String nickName){
+        DBConnection.deletePlantFromUserPlants(nickName);
+        return "redirect:/user";
+    }
+
+
+
 }
 
