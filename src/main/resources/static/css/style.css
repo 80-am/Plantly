@@ -7,6 +7,8 @@ body {
   background: #eee;
   color: #20221D;
   font-family: 'Cantarell', sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 * {
@@ -566,4 +568,8 @@ svg {
 
 .ui-menu-item:hover {
   color: hsl(110, 87%, 35%);
+}
+
+.ui-helper-hidden-accessible {
+  visibility: hidden;
 }

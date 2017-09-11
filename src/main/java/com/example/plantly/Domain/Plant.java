@@ -5,7 +5,7 @@ public class Plant {
     public String plantGenus;
     public String plantInfo;
     public String water;
-    public String tempature;
+    public String temperature;
     public String humidity;
     public String flowering;
     public String pests;
@@ -18,12 +18,12 @@ public class Plant {
     public String light;
     public int plantId;
 
-    public Plant(String plantSpecies, String plantGenus, String plantInfo, String water, String tempature, String humidity, String flowering, String pests, String diseases, String soil, String potSize, String poisonous, int daysUntilWatering, String fertilizer, String light, int plantId) {
+    public Plant(String plantSpecies, String plantGenus, String plantInfo, String water, String temperature, String humidity, String flowering, String pests, String diseases, String soil, String potSize, String poisonous, int daysUntilWatering, String fertilizer, String light, int plantId) {
         this.plantSpecies = plantSpecies;
         this.plantGenus = plantGenus;
         this.plantInfo = plantInfo;
         this.water = water;
-        this.tempature = tempature;
+        this.temperature = temperature;
         this.humidity = humidity;
         this.flowering = flowering;
         this.pests = pests;
