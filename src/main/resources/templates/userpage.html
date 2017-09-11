@@ -31,7 +31,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -82,24 +82,22 @@
             <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
                 <h2>Add Plant</h2>
                 <form action="/addUserPlant" method="post">
-
                     <input type="hidden" th:value="${session.user.userId}" name="userId"/>
-
-
                     <div class="field-wrap">
                         <label>
                             Plant Nickname: <span class="req"></span>
                         </label>
                         <input type="text" name="nickName" required="required" autocomplete="off"/>
                     </div>
-
                     <div class="field-wrap">
                         <label>
                             Plant Species: <span class="req"></span>
                         </label>
                         <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
                     </div>
-                    <button type="submit" class="button button-block">Add Plant</button>
+
+                    <button type="submit" class="button button-block">Add</button>
+             
                 </form>
 
                 <!--== clock is located here !!!!-->
@@ -147,6 +145,7 @@
             </div>
         </div>
     </div>
+    <p id="footer">Copyright 2017 TEAM PLANTLY</p>
 </div>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
