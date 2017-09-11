@@ -140,6 +140,12 @@ public class DBController {
         return "redirect:/user";
     }
 
+    @GetMapping("/clock")
+    public String testClock(){
+        return  "clock";
+    }
+
+
 
 
 }
