@@ -129,7 +129,7 @@ svg {
   display: none;
   background: rgba(19, 35, 47, 0.9);
   padding: 30px;
-  max-width: 400px;
+  max-width: 280px;
   margin: 40px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
@@ -261,7 +261,6 @@ svg {
   outline: none;
   border-radius: 0;
   padding: 15px 0;
-  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
@@ -517,11 +516,9 @@ svg {
 
 .my-plantly-form .button {
   border: 0;
-  margin-bottom: 10px;
   outline: none;
   border-radius: 0;
   padding: 15px 0;
-  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
@@ -543,4 +540,21 @@ svg {
 
 .my-plantly-add-div {
   margin-right: 10px;
+}
+
+.ui-menu-item {
+   cursor: pointer;
+   background-color: #fff;
+   max-width: 200px;
+   display: block;
+   /*overflow: visible;*/
+   padding: 5px 20px;
+   clear: both;
+   font-weight: normal;
+   line-height: 1.42857143;
+   color: #333;
+ }
+
+.ui-menu-item:hover {
+  color: hsl(110, 87%, 35%);
 }
