@@ -9,23 +9,12 @@
 
     <title>MY PLANTLY | PLANTLY</title>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/TimeCircles.js"></script>
     <link href="/css/TimeCircles.css" rel="stylesheet"/>
-
-    <!--== dependencies for clockdown-->
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="/js/TimeCircles.js"></script>
-    <link href="/css/TimeCircles.css" rel="stylesheet"/>
-
-    <!--== ends here clock dependencies-->
 
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="/css/styleuserHP.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
-    <script src="/bootstrap/js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -96,7 +85,7 @@
                         <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
                     </div>
 
-                    <button type="submit" class="button button-block">Add</button>
+                    <button type="submit" class="button button-block" id="my-plantly-form-addbutton" >Add</button>
              
                 </form>
 
@@ -107,7 +96,7 @@
                 <div class="col-md-12">
 
                     <div class="clock" data-timer="900" data-unit="Days"></div>
-                    <button class="restart button button-block">Restart</button>
+                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Restart</button>
 
                 </div>
 
@@ -135,13 +124,20 @@
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-                        <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
+
+                        <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
+                            <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
+                        <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
+                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td>
+
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
-                            <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span></a>
+                            <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
+                        </a>
 
                         </td>
                     </tr>
                 </table>
+
             </div>
         </div>
     </div>
@@ -149,15 +145,18 @@
 </div>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-<!--<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>-->
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js'></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<script type="text/javascript" src="/js/TimeCircles.js"></script>
 
 <script src="/js/index.js"></script>
 <script src="/js/autocomplete.js"></script>
 <script src="/js/table.js"></script>
 <script src="/js/clockdown.js"></script>
+<script src="/bootstrap/js/bootstrap.js"></script>
 
 <script type="text/javascript" src="/js/clockdown.js"></script>
 

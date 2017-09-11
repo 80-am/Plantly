@@ -515,6 +515,14 @@ svg {
   resize: vertical;
 }
 
+#my-plantly-form-addbutton {
+    margin-bottom: 20px;
+}
+
+#my-plantly-form-resetbutton {
+    margin-top: 20px;
+}
+
 .my-plantly-form .button {
   border: 0;
   outline: none;
