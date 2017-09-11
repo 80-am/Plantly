@@ -32,7 +32,6 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">home</a></li>
                 <li><a href="/about">about</a></li>
                 <li>
                     <a class="nav-link" id="loginButton" th:unless="${session.user}" th:text="'log in'"></a>
@@ -45,12 +44,12 @@
                         <li><a href="user">
                             <span class="glyphicon glyphicon-grain" aria-hidden="true"></span> | my plantly</a>
                         </li>
-                        <li><a href="logout">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> | log out</a>
-                        </li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">
                             <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> | change password</a>
+                        </li>
+                        <li><a href="logout">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> | log out</a>
                         </li>
                     </ul>
                 </li>
@@ -65,7 +64,6 @@
     <div class="row">
         <div class="col-md-12 content-area content-padding">
 
-            <h1>My Plantly</h1>
 
             <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
                 <h2>Add Plant</h2>
@@ -87,8 +85,6 @@
                         </label>
                         <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
                     </div>
-
-                    <button type="submit" class="button button-block">Back</button>
                     <button type="submit" class="button button-block">Add Plant</button>
                 </form>
             </div>
@@ -100,8 +96,8 @@
                     <tr>
                         <th>Nickname</th>
                         <th>Plant Species</th>
-                        <th>Light</th>
-                        <th>Water Needs</th>
+                        <th>Water</th>
+
                         <th>Poisonous</th>
                         <th>Remove</th>
                     </tr>
@@ -113,11 +109,11 @@
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
-                        <td data-th="Light" th:text="${plantInfo.light}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
                         <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
-                        <td data-th="Remove">
-                            <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
+                        <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
+                            <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span></a>
+
                         </td>
                     </tr>
                 </table>
