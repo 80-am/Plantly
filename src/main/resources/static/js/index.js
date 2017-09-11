@@ -294,13 +294,6 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $("#loginButton").click(function(){
-        $("#form").show();
-        $("#aboutContent").hide();
-    });
-});
-
 $(document).mouseup(function (e)
 {
     var container = $("#form"); // YOUR CONTAINER SELECTOR
@@ -310,7 +303,18 @@ $(document).mouseup(function (e)
     {
         container.fadeOut();
         $("#randomHeader").fadeIn();
+
     }
+});
+
+/* HIDE AND SHOW LOGIN FORM ON ABOUT */
+
+
+$(document).ready(function(){
+    $("#loginButton").click(function(){
+        $("#form").show();
+        $("#aboutContent").hide();
+    });
 });
 
 
