@@ -3,6 +3,7 @@
 /*general css*/
 
 body {
+  margin-top: 50px;
   background: #eee;
   color: #20221D;
   font-family: 'Cantarell', sans-serif;
@@ -130,7 +131,7 @@ svg {
   background: rgba(19, 35, 47, 0.9);
   padding: 30px;
   max-width: 280px;
-  margin: 40px auto;
+  margin: 70px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
