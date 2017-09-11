@@ -347,7 +347,7 @@ svg {
   color: #ff0000;
 }
 .glyphicon-blue {
-  color: #042E7F;
+  color: #179b77;
 }
 .glyphicon-grey {
   color: hsl(0, 0%, 55%);
@@ -566,4 +566,8 @@ svg {
 
 .ui-menu-item:hover {
   color: hsl(110, 87%, 35%);
+}
+
+.ui-helper-hidden-accessible {
+  visibility: hidden;
 }

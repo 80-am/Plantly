@@ -123,7 +123,38 @@
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
-                        <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+                        <!--<td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>-->
+
+                        <td data-th="Water Needs" th:if="${plantInfo.waterDays gt 20}">
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                        </td>
+
+                        <td data-th="Water Needs" th:if="${plantInfo.waterDays gt 15 and plantInfo.waterDays lt 21}">
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                        </td>
+
+                        <td data-th="Water Needs" th:if="${plantInfo.waterDays gt 10 and plantInfo.waterDays lt 16}">
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                        </td>
+
+                        <td data-th="Water Needs" th:if="${plantInfo.waterDays gt 5 and plantInfo.waterDays lt 11}">
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                        </td>
+
+                        <td data-th="Water Needs" th:if="${plantInfo.waterDays lt 6}">
+                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
+                        </td>
+
 
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
