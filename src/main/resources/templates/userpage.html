@@ -72,37 +72,35 @@
     <div class="row">
         <div class="col-md-12 content-area content-padding">
 
-                <h1>My Plants</h1>
+            <h1>My Plants</h1>
 
-                <form action="/addplant" method="get">
-                    <input type="submit" class="button button-block" value="Add a plant"/>
-                </form>
+            <form action="/addplant" method="get">
+                <input type="submit" class="button button-block" value="Add a plant"/>
+            </form>
 
 
-                <table class="rwd-table">
-                    <tr>
-                        <th>Nick name</th>
-                        <th>Plant Species</th>
-                        <th>Light</th>
-                        <th>Water Needs</th>
-                        <th>Poisonous</th>
-                        <th>Remove</th>
-                    </tr>
+            <table class="rwd-table">
+                <tr>
+                    <th>Nick name</th>
+                    <th>Plant Species</th>
+                    <th>Water Needs</th>
+                    <th>Poisonous</th>
+                    <th>Remove</th>
+                </tr>
 
-                    <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
-                    <tr th:each="plantInfo : ${userPlansList}">
-                        <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
-                        <td data-th="Type">
-                            <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
-                               th:text="${plantInfo.plantSpecies}"></a>
-                        </td>
-                        <td data-th="Light" th:text="${plantInfo.light}"></td>
-                        <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-                        <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
-                        <td data-th="Remove">X</td>
-                    </tr>
-                </table>
-            </div>
+                <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
+                <tr th:each="plantInfo : ${userPlansList}">
+                    <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
+                    <td data-th="Type">
+                        <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
+                           th:text="${plantInfo.plantSpecies}"></a>
+                    </td>
+                    <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+                    <td data-th="Poisonous" th:text="${plantInfo.poison}"></td>
+                    <td data-th="Remove">X</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
