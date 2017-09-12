@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -123,9 +124,11 @@ public class DBController {
         session.setAttribute("warning", "ok");
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
         if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
             return "redirect:/user";
         }
+
+
         session.setAttribute("warning", "Nickname already exists!");
         return "addplant";
     }
