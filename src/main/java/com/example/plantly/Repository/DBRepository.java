@@ -39,7 +39,7 @@ public class DBRepository implements PlantyDBRepository {
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO [Users] (Email, FirstName, LastName, Password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (Email, FirstName, LastName, Password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
             ps.setString(1, email);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
@@ -54,7 +54,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<User> getAllUsers() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM [Users]")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM Users")) {
             List<User> users = new ArrayList<>();
             while (rs.next()) users.add(rsUser(rs));
             return users;
@@ -92,7 +92,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<String> getPlantName() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT PlantSpecies FROM [Plants]")) {
+             ResultSet rs = stmt.executeQuery("SELECT PlantSpecies FROM Plants")) {
             List<String> plants = new ArrayList<>();
             while (rs.next()) plants.add(rsPlants(rs));
             return plants;
