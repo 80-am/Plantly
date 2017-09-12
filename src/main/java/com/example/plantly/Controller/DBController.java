@@ -50,10 +50,22 @@ public class DBController {
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
 
+
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
+            System.out.println(userPlantList.get(0).waterDays);
+
+            int nextPlant = userPlantList.get(0).waterDays;
+
+            for(UserPlant up: userPlantList){
+               if(up.waterDays>nextPlant) {
+                   nextPlant=up.waterDays;
+               }
+            }
+
+            return new ModelAndView("userpage").addObject("userPlansList", userPlantList)
+                                                        .addObject("time", nextPlant);
         }
         model.addAttribute("info", "Wrong password or email try again");
         return new ModelAndView("/");
@@ -65,7 +77,18 @@ public class DBController {
         if (session.getAttribute("user") != null) {
             User user = (User)session.getAttribute("user");
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
+
+
+            int nextPlant = userPlantList.get(0).waterDays;
+
+            for(UserPlant up: userPlantList){
+                if(up.waterDays>nextPlant) {
+                    nextPlant=up.waterDays;
+                }
+            }
+            return new ModelAndView("userpage").addObject("userPlansList", userPlantList)
+                    .addObject("time", nextPlant);
+
         }
         return new ModelAndView("redirect:/");
     }
@@ -132,6 +155,14 @@ public class DBController {
     @ResponseBody
     public List<String> getData(){
         return DBConnection.getPlantName();
+    }
+
+    @RequestMapping(path = "/GETD", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getDAYS(HttpSession session){
+        User user = (User)session.getAttribute("user");
+
+        return DBConnection.getDays(user.getUserId());
     }
 
     @GetMapping("/deletePlant/{nickName}")

@@ -190,6 +190,28 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
+    @Override
+    public List<Integer> getDays(int userID) {
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("select A.PlantID, B.DaysUntilWatering from [UsersPlants] as A\n" +
+                    "inner join [Plants] as B on A.PlantID=B.PlantID where A.UserID=?;")) {
+            ps.setInt(1, userID);
+            List<Integer> days = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                days.add(rsDays(rs));
+            }
+            return days;
+        } catch (SQLException e) {
+            throw new PlantyRepositoryException(e);
+        }
+
+    }
+
+    private Integer rsDays(ResultSet rs) throws SQLException {
+        return new Integer(rs.getInt("DaysUntilWatering"));
+    }
+
 
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();

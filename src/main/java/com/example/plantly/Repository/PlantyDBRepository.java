@@ -18,6 +18,7 @@ public interface PlantyDBRepository {
     void changePassword(int userId, String newPassword);
     List<String> getPlantName();
     void deletePlantFromUserPlants(String nickName);
+    List<Integer> getDays(int userID);
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }
