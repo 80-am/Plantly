@@ -538,6 +538,27 @@ svg {
   -webkit-appearance: none;
 }
 
+#water-button {
+  font-size: smaller;
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 5px 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  /*display: block;*/
+
+}
+#water-button:hover {
+  background: #179b77;
+}
+
 .my-plantly-form .button:hover, .button:focus {
   background: #179b77;
 }
