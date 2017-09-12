@@ -128,6 +128,7 @@ public class DBRepository implements PlantyDBRepository {
                             rs.getInt("DaysUntilWatering"),
                             rs.getString("Fertilizer"),
                             rs.getString("Light"),
+                            rs.getString("LightNeeded"),
                             rs.getInt("plantID"));
                     return plant;
                 }
@@ -213,7 +214,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, Light " +
+             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, LightNeeded " +
                      "FROM UsersPlants " +
                      "JOIN Plants " +
                      "ON UsersPlants.PlantID = Plants.PlantID " +
@@ -235,7 +236,7 @@ public class DBRepository implements PlantyDBRepository {
     public UserPlant rsUserPlant(ResultSet rs) throws SQLException{
        return new UserPlant(rs.getString("NickName"),
                rs.getString("PlantSpecies"),
-               rs.getString("Light"),
+               rs.getString("LightNeeded"),
                rs.getInt("DaysUntilWatering"),
                rs.getString("Poisonous"));
     }
