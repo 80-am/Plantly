@@ -86,7 +86,7 @@
                     </div>
 
                     <button type="submit" class="button button-block" id="my-plantly-form-addbutton" >Add</button>
-
+                <div th:if="${warning}" th:text="${warning}"></div>
                 </form>
 
                 <!--== clock is located here !!!!-->
@@ -110,19 +110,20 @@
                     <tr>
                         <th>Nickname</th>
                         <th>Plant Species</th>
+                        <th>Light</th>
                         <th>Water</th>
-
                         <th>Poisonous</th>
                         <th>Remove</th>
                     </tr>
 
                     <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
-                    <tr th:each="plantInfo : ${userPlansList}">
+                    <tr th:each="plantInfo : ${session.userPlansList}">
                         <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
                         <td data-th="Type">
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
+                        <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
 
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">

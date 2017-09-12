@@ -44,7 +44,8 @@ public class DBController {
         User user = DBConnection.getCurrentUser(email, password);
         List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
         session.setAttribute("user", user);
-        return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
+        session.setAttribute("userPlansList", userPlantList);
+        return new ModelAndView("userpage");
     }
 
     @PostMapping("/user")
@@ -55,9 +56,10 @@ public class DBController {
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
+            session.setAttribute("userPlansList", userPlantList);
+            return new ModelAndView("userpage");
         }
-        model.addAttribute("infoLogin", "Invalid email or password!");
+        model.addAttribute("infoLogin   ", "Invalid email or password!");
         return new ModelAndView("index");
 
     }
@@ -67,6 +69,7 @@ public class DBController {
         if (session.getAttribute("user") != null) {
             User user = (User)session.getAttribute("user");
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
+            session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
         return new ModelAndView("redirect:/");
@@ -119,15 +122,15 @@ public class DBController {
     }
 
     @PostMapping("/addUserPlant")
-    public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
-        session.setAttribute("warning", "ok");
+    public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
         if(!nickNameExists){
             DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
-            return "redirect:/user";
+            List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
+            session.setAttribute("userPlansList", userPlantList);
+            return new ModelAndView("userpage");
         }
-        session.setAttribute("warning", "Nickname already exists!");
-        return "addplant";
+        return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
 
     @RequestMapping(path = "/GET", method = RequestMethod.GET)
