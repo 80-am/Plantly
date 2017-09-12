@@ -33,16 +33,18 @@ public class DBController {
 	}
 
     @PostMapping("/signup")
-    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
+    public ModelAndView signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password, HttpSession session) {
         List<User> allUsers = DBConnection.getAllUsers();
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).getEmail().equals(email)) {
-                model.addAttribute("info", "User with this email already exists");
-                return "redirect:/";
+                return new ModelAndView("index").addObject("infoSignup", "User already exists!");
             }
         }
         DBConnection.addUser(email, firstname, lastname, password);
-        return "redirect:/";
+        User user = DBConnection.getCurrentUser(email, password);
+        List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
+        session.setAttribute("user", user);
+        return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
     }
 
     @PostMapping("/user")
@@ -55,8 +57,8 @@ public class DBController {
             session.setAttribute("user", user);
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
-        model.addAttribute("info", "Wrong password or email try again");
-        return new ModelAndView("/");
+        model.addAttribute("infoLogin", "Invalid email or password!");
+        return new ModelAndView("index");
 
     }
 
@@ -91,7 +93,7 @@ public class DBController {
                 //return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
             }
         }
-        return "redirect:/";
+        return "redirect:index";
     }
 
     @GetMapping("/logout")
