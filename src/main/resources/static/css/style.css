@@ -31,10 +31,9 @@ a:focus {
   text-align: center;
 }
 
-.infowarning{
+#form .infoWarning {
   color: white;
   text-align: center;
-
 }
 .bg-light {
   background-color: #eee;

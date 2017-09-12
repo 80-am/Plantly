@@ -4,8 +4,6 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
-import com.example.plantly.Repository.PlantyDBRepository;
-import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,21 +79,21 @@ public class DBController {
 
 
     @PostMapping("/passwordVerification")
-    public String /*ModelAndView*/ passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
+    public /*String*/ ModelAndView passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
         if(session.getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");
             if (user.getPassword().equals(oldPassword)) {
                 DBConnection.changePassword(user.getUserId(), newPassword);
-                model.addAttribute("info", "Password has been changed");
-                return "changePassword";
-                //return new ModelAndView("changePassword").addObject("info", "Password has been changed");
+                //model.addAttribute("info", "Password has been changed");
+                //return "changePassword";
+                return new ModelAndView("changePassword").addObject("info", "Password has been changed");
             } else {
-                model.addAttribute("info", "Wrong password!");
-                return "changePassword";
-                //return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
+                //model.addAttribute("info", "Wrong password!");
+                //return "changePassword";
+                return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
             }
         }
-        return "redirect:index";
+        return new ModelAndView("userpage");
     }
 
     @GetMapping("/logout")
