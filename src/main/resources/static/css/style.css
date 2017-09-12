@@ -31,6 +31,11 @@ a:focus {
   text-align: center;
 }
 
+.infowarning{
+  color: white;
+  text-align: center;
+
+}
 .bg-light {
   background-color: #eee;
 }
