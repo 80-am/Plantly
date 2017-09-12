@@ -552,17 +552,13 @@ svg {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
-  /*display: block;*/
-
 }
 #water-button:hover {
   background: #179b77;
 }
-
 .my-plantly-form .button:hover, .button:focus {
   background: #179b77;
 }
-
 .my-plantly-form .button-block {
   display: block;
   width: 100%;
