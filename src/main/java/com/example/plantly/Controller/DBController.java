@@ -59,8 +59,7 @@ public class DBController {
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
         }
-        model.addAttribute("infoLogin   ", "Invalid email or password!");
-        return new ModelAndView("index");
+        return new ModelAndView("index").addObject("infoLogin", "Invalid email or password!");
 
     }
 
