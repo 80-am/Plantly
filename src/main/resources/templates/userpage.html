@@ -112,7 +112,7 @@
                         <th>Plant species</th>
                         <th>Needs water in</th>
                         <th>Water plant</th>
-                        <th>Poisonous</th>
+                        <th>Eatable</th>
                         <th>Remove</th>
                     </tr>
 
@@ -128,9 +128,9 @@
 
                         <td data-th="Water Plant"><button id="water-button">Water</button></td>
 
-                        <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
+                        <td data-th="Eatable" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
-                        <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
+                        <td data-th="Eatable" th:if="${plantInfo.poison == '0'}">
                             <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td>
 
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
