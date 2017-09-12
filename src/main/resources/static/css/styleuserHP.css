@@ -21,7 +21,7 @@
     padding-bottom: .5em;
 }
 .rwd-table td:before {
-    content: attr(data-th) ": ";
+    content: attr(data-th) "  ";
     font-weight: bold;
     width: 6.5em;
     display: inline-block;
