@@ -127,7 +127,10 @@
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
 
-                        <td data-th="Water Plant"><button id="water-button">Water</button></td>
+                        <td data-th="Water Plant">
+                            <form action="/updateSql" method="post">
+                            <button id="water-button ">Water</button>
+                            </form></td>
 
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>

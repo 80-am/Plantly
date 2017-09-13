@@ -121,13 +121,20 @@ public class DBController {
         return "addplant";
     }
 
+    @PostMapping("/updateSql")
+    public ModelAndView updateDates(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        
+        return new ModelAndView("userpage");
+    }
+
     @PostMapping("/addUserPlant")
     public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
 
         int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
         int wdays = DBConnection.getWateringDays(plantID);
-       
+
         LocalDate regdate = LocalDate.now();
         LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
 
