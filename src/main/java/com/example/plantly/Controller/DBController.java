@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -122,10 +124,16 @@ public class DBController {
     @PostMapping("/addUserPlant")
     public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
-        if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        int day = 10;
+        LocalDate regdate = LocalDate.now();
+        LocalDate futureDate = regdate.plusDays(10);
+        LocalDate date = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(10);
+        java.sql.Date.valueOf(futureDate);
 
-          //  DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+
+        if(!nickNameExists){
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(date));
+
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
