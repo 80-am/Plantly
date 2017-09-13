@@ -56,7 +56,7 @@ public class DBController {
             return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
         }
         model.addAttribute("info", "Wrong password or email try again");
-        return new ModelAndView("/");
+        return new ModelAndView("redirect:/");
 
     }
 
