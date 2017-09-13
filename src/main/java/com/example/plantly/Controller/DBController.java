@@ -124,19 +124,29 @@ public class DBController {
     @PostMapping("/addUserPlant")
     public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
-        int day = 10;
-        LocalDate regdate = LocalDate.now();
-        LocalDate futureDate = regdate.plusDays(10);
-        LocalDate date = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(10);
-        java.sql.Date.valueOf(futureDate);
 
+//        int day = 10;
+
+//        //LocalDate futureDate = regdate.plusDays(10);
+//        LocalDate date = null;
+//        java.sql.Date.valueOf(futureDate);
+//        int days = 0;
+//        date =
+        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
+        int wdays = DBConnection.getWateringDays(plantID);
+        System.out.println(plantID);
+        System.out.println(wdays);
+
+        LocalDate regdate = LocalDate.now();
+        LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
 
         if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(date));
 
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(futureDate));
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
+
         }
         return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }

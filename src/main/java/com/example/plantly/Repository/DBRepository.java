@@ -178,6 +178,10 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
+
+
+
+
     /* DELETE PLANT FROM USER DB */
 
     @Override
@@ -210,6 +214,28 @@ public class DBRepository implements PlantyDBRepository {
             throw new PlantyRepositoryException(e);
         }
         return 0;
+    }
+
+    public int getWateringDays(int plantID) {
+        int wateringDays =0;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("select DaysUntilWatering from [Plants] where PlantID=?;"))
+        {
+            ps.setInt(1, plantID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                     wateringDays = rs.getInt("DaysUntilWatering");
+                    return wateringDays;
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                return 0;
+            }
+        }catch (SQLException e){
+            throw new PlantyRepositoryException(e);
+        }
+        System.out.println("here are we");
+        return wateringDays;
     }
 
     @Override
