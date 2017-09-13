@@ -31,10 +31,9 @@ a:focus {
   text-align: center;
 }
 
-.infowarning{
+#form .infoWarning {
   color: white;
   text-align: center;
-
 }
 .bg-light {
   background-color: #eee;
@@ -138,7 +137,7 @@ svg {
   background: rgba(19, 35, 47, 0.9);
   padding: 30px;
   max-width: 280px;
-  margin: 70px auto;
+  margin: 170px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
@@ -167,6 +166,12 @@ svg {
   cursor: pointer;
   -webkit-transition: .5s ease;
   transition: .5s ease;
+}
+
+.change-pass-div {
+
+  margin: auto;
+
 }
 
 .tab-group li a:hover {
@@ -354,7 +359,7 @@ svg {
   color: #ff0000;
 }
 .glyphicon-blue {
-  color: #042E7F;
+  color: #179b77;
 }
 .glyphicon-grey {
   color: hsl(0, 0%, 55%);
@@ -545,10 +550,27 @@ svg {
   -webkit-appearance: none;
 }
 
+#water-button {
+  font-size: smaller;
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 5px 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+}
+#water-button:hover {
+  background: #179b77;
+}
 .my-plantly-form .button:hover, .button:focus {
   background: #179b77;
 }
-
 .my-plantly-form .button-block {
   display: block;
   width: 100%;
@@ -572,6 +594,10 @@ svg {
  }
 
 .ui-menu-item:hover {
+  color: hsl(110, 87%, 35%);
+}
+
+.ui-menu-item:focus {
   color: hsl(110, 87%, 35%);
 }
 
