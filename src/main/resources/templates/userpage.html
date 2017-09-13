@@ -111,7 +111,8 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Light</th>
-                        <th>Water</th>
+                        <th sort="water">Water</th>
+                        <th>Water plant</th>
                         <th>Poisonous</th>
                         <th>Remove</th>
                     </tr>
@@ -125,6 +126,8 @@
                         </td>
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+
+                        <td data-th="Water Plant"><button id="water-button">Water</button></td>
 
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
@@ -160,5 +163,6 @@
 <script src="/bootstrap/js/bootstrap.js"></script>
 
 <script type="text/javascript" src="/js/clockdown.js"></script>
+<p th:if="${session.warning} != 'ok'" th:text="${session.warning}"></p>
 </body>
 </html>
