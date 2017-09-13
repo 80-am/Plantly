@@ -7,6 +7,8 @@ body {
   background: #eee;
   color: #20221D;
   font-family: 'Cantarell', sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 * {
@@ -29,6 +31,10 @@ a:focus {
   text-align: center;
 }
 
+#form .infoWarning {
+  color: white;
+  text-align: center;
+}
 .bg-light {
   background-color: #eee;
 }
@@ -160,6 +166,12 @@ svg {
   cursor: pointer;
   -webkit-transition: .5s ease;
   transition: .5s ease;
+}
+
+.change-pass-div {
+
+  margin: auto;
+
 }
 
 .tab-group li a:hover {
@@ -582,6 +594,10 @@ svg {
  }
 
 .ui-menu-item:hover {
+  color: hsl(110, 87%, 35%);
+}
+
+.ui-menu-item:focus {
   color: hsl(110, 87%, 35%);
 }
 
