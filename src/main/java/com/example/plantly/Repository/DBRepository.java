@@ -218,7 +218,8 @@ public class DBRepository implements PlantyDBRepository {
                      "FROM UsersPlants " +
                      "JOIN Plants " +
                      "ON UsersPlants.PlantID = Plants.PlantID " +
-                     "WHERE UserID = ?")) {
+                     "WHERE UserID = ? " +
+                     "ORDER BY DaysUntilWatering")) {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
