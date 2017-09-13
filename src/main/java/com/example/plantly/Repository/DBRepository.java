@@ -30,7 +30,7 @@ public class DBRepository implements PlantyDBRepository {
     public boolean userExists(String email, String password) {
         List<User> getAllUsers = getAllUsers();
         for(User u: getAllUsers) {
-            System.out.println(u.getEmail());
+            System.out.println("-" + u.getEmail() + "-" + u.getPassword());
             if(u.getEmail().equals(email) && u.getPassword().equals(password))
                 return true;
         }
