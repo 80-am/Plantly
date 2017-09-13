@@ -57,7 +57,6 @@ public class DBController {
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
         }
-        System.out.println(user.getEmail());
         return new ModelAndView("index").addObject("infoLogin", "Invalid email or password!");
 
     }
