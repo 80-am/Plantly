@@ -39,7 +39,7 @@ public class DBRepository implements PlantyDBRepository {
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (Email, FirstName, LastName, Password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users (email, firstname, lastname, password) values (?,?,?,?) ", new String[]{"userid"}) ) {
             ps.setString(1, email);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
@@ -54,7 +54,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<User> getAllUsers() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM Users")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM users")) {
             List<User> users = new ArrayList<>();
             while (rs.next()) users.add(rsUser(rs));
             return users;
@@ -64,7 +64,7 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     private User rsUser(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("UserId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("Password"));
+        return new User(rs.getInt("userid"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("password"));
     }
 
     public User getCurrentUser(String email, String password) {
@@ -79,7 +79,7 @@ public class DBRepository implements PlantyDBRepository {
     @Override
     public void changePassword(int userId, String newPassword){
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("Update Users SET Password = ? WHERE UserID = ?")) {
+            PreparedStatement ps = conn.prepareStatement("Update users SET password = ? WHERE userid = ?")) {
             ps.setString(1, newPassword);
             ps.setInt(2, userId);
             ps.executeUpdate();
@@ -92,7 +92,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<String> getPlantName() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT PlantSpecies FROM Plants")) {
+             ResultSet rs = stmt.executeQuery("SELECT plantspecies FROM plants")) {
             List<String> plants = new ArrayList<>();
             while (rs.next()) plants.add(rsPlants(rs));
             return plants;
@@ -102,46 +102,46 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     private String rsPlants(ResultSet rs) throws SQLException {
-        return new String(rs.getString("PlantSpecies"));
+        return new String(rs.getString("plantspecies"));
     }
 
 
     @Override
     public Plant getPlantByPlantSpecies (String plantSpecies){
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Plants WHERE PlantSpecies = ?")){
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM plants WHERE plantspecies = ?")){
             ps.setString(1, plantSpecies);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Plant plant = new Plant(rs.getString("PlantSpecies"),
-                            rs.getString("PlantGenus"),
-                            rs.getString("PlantInfo"),
-                            rs.getString("Water"),
-                            rs.getString("Tempature"),
-                            rs.getString("Humidity"),
-                            rs.getString("Flowering"),
-                            rs.getString("Pests"),
-                            rs.getString("Diseases"),
-                            rs.getString("Soil"),
-                            rs.getString("PotSize"),
-                            rs.getString("Poisonous"),
-                            rs.getInt("DaysUntilWatering"),
-                            rs.getString("Fertilizer"),
-                            rs.getString("Light"),
-                            rs.getInt("plantID"));
+                    Plant plant = new Plant(rs.getString("plantspecies"),
+                            rs.getString("plantgenus"),
+                            rs.getString("plantinfo"),
+                            rs.getString("water"),
+                            rs.getString("tempature"),
+                            rs.getString("humidity"),
+                            rs.getString("flowering"),
+                            rs.getString("pests"),
+                            rs.getString("diseases"),
+                            rs.getString("soil"),
+                            rs.getString("potsize"),
+                            rs.getString("poisonous"),
+                            rs.getInt("daysuntilwatering"),
+                            rs.getString("fertilizer"),
+                            rs.getString("light"),
+                            rs.getInt("plantid"));
                     return plant;
                 }
             }catch(SQLException e){
                 return null;
             }
         }catch(SQLException e){
-            throw new PlantyRepositoryException("Connection in getPlantByPlantSpecies failed!");
+            throw new PlantyRepositoryException("Connection in getplantbyplantspecies failed!");
         }
         return null;
     }
     public boolean nickNameAlreadyExists(String nickName, int userId){
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT NickName FROM UsersPlants WHERE UserId = ? AND NickName = ?")) {
+            PreparedStatement ps = conn.prepareStatement("SELECT nickname FROM usersplants WHERE userid = ? AND nickname = ?")) {
             ps.setInt(1, userId);
             ps.setString(2,nickName);
             try (ResultSet rs = ps.executeQuery()) {
@@ -163,7 +163,7 @@ public class DBRepository implements PlantyDBRepository {
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
+                 PreparedStatement ps = conn.prepareStatement("INSERT INTO usersplants(userid, nickname, photo, plantid) VALUES(?,?,?,?)")) {
                 ps.setInt(1, userId);
                 ps.setString(2, nickName);
                 ps.setString(3, photo);
@@ -181,7 +181,7 @@ public class DBRepository implements PlantyDBRepository {
     public void deletePlantFromUserPlants(String nickName) {
         if(nickName != null){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("DELETE FROM UsersPlants WHERE NickName = ?")) {
+                 PreparedStatement ps = conn.prepareStatement("DELETE FROM usersplants WHERE nickname = ?")) {
                 ps.setString(1,nickName);
                 ps.executeUpdate();
             } catch (SQLException e) {
@@ -193,11 +193,11 @@ public class DBRepository implements PlantyDBRepository {
 
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT PlantID FROM Plants WHERE PlantSpecies = ?")) {
+            PreparedStatement ps = conn.prepareStatement("SELECT plantid FROM plants WHERE plantspecies = ?")) {
             ps.setString(1, plantSpecies);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int plantId = rs.getInt("plantID");
+                    int plantId = rs.getInt("plantid");
                     return plantId;
                 }
             }catch(SQLException e){
@@ -213,11 +213,11 @@ public class DBRepository implements PlantyDBRepository {
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, Light " +
-                     "FROM UsersPlants " +
-                     "JOIN Plants " +
-                     "ON UsersPlants.PlantID = Plants.PlantID " +
-                     "WHERE UserID = ?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT nickname, plantspecies, poisonous, daysuntilwatering, light " +
+                     "FROM usersplants " +
+                     "JOIN plants " +
+                     "ON usersplants.plantid = plants.plantid " +
+                     "WHERE userid = ?")) {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -233,10 +233,10 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     public UserPlant rsUserPlant(ResultSet rs) throws SQLException{
-       return new UserPlant(rs.getString("NickName"),
-               rs.getString("PlantSpecies"),
-               rs.getString("Light"),
-               rs.getInt("DaysUntilWatering"),
-               rs.getString("Poisonous"));
+       return new UserPlant(rs.getString("nickname"),
+               rs.getString("plantspecies"),
+               rs.getString("light"),
+               rs.getInt("daysuntilwatering"),
+               rs.getString("poisonous"));
     }
 }
