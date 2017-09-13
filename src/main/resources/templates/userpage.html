@@ -74,7 +74,7 @@
                     <input type="hidden" th:value="${session.user.userId}" name="userId"/>
                     <div class="field-wrap">
                         <label>
-                            Plant Nickname: <span class="req"></span>
+                            Nickname: <span class="req"></span>
                         </label>
                         <input type="text" name="nickName" required="required" autocomplete="off"/>
                     </div>
@@ -111,9 +111,8 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Light</th>
-                        <th sort="water">Water</th>
+                        <th>Water</th>
                         <th>Water plant</th>
-                        <th>Poisonous</th>
                         <th>Remove</th>
                     </tr>
 
@@ -126,14 +125,7 @@
                         </td>
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-
                         <td data-th="Water Plant"><button id="water-button">Water</button></td>
-
-                        <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
-                            <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
-                        <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
-                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td>
-
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
                         </a>
