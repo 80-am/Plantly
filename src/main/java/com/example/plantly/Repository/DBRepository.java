@@ -54,7 +54,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<User> getAllUsers() {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM Users")) {
+             ResultSet rs = stmt.executeQuery("Select * From Users")) {
             List<User> users = new ArrayList<>();
             while (rs.next()) users.add(rsUser(rs));
             return users;
