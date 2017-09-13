@@ -214,11 +214,11 @@ public class DBRepository implements PlantyDBRepository {
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, LightNeeded " +
-                     "FROM UsersPlants " +
-                     "JOIN Plants " +
-                     "ON UsersPlants.PlantID = Plants.PlantID " +
-                     "WHERE UserID = ?")) {
+             PreparedStatement ps = conn.prepareStatement("Select nickname, plantspecies, poisonous, daysuntilwatering, lightneeded " +
+                     "From usersplants " +
+                     "Join plants " +
+                     "On usersplants.plantid = plants.plantid " +
+                     "Where userid= ?")) {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
