@@ -123,7 +123,9 @@ public class DBController {
     public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
         if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+
+          //  DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
