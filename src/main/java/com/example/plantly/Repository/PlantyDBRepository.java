@@ -26,5 +26,7 @@ public interface PlantyDBRepository {
 
     void updateDates(String usersPlantsID, LocalDate wateredDay, LocalDate futureDate);
 
+    List<LocalDate> getAllWDays(int userID);
+
     // här kommer vi skriva metod som implementeras i DB Repository
 }
