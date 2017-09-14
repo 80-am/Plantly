@@ -219,6 +219,22 @@ public class DBRepository implements PlantyDBRepository {
         return null;
     }
 
+    @Override
+    public void updateDates(String usersPlantsID, LocalDate wateredDay, LocalDate futureDate) {
+        int parsedDate = Integer.parseInt(usersPlantsID);
+
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("UPDATE [UsersPlants]  SET RegistrationDate = ? , WateringDate = ? WHERE UsersPlantsID = ?")) {
+            ps.setDate(1, java.sql.Date.valueOf( wateredDay ));
+            ps.setDate(2, java.sql.Date.valueOf( futureDate ) );
+            ps.setInt(3, parsedDate);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage() );
+        }
+
+    }
+
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT PlantID FROM Plants WHERE PlantSpecies = ?")) {

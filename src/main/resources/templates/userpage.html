@@ -130,7 +130,7 @@
 
                         <td data-th="Water Plant">
 
-                            <button id="water-button "><a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID}">Water</a></button>
+                            <button id="water-button "><a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">Water</a></button>
                         </td>
 
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">

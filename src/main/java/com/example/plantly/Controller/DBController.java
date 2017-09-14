@@ -162,11 +162,20 @@ public class DBController {
         return "redirect:/user";
     }
 
-    @GetMapping ("/updateWateringDays/{usersPlantsID}")
-    public String updateDates(@PathVariable String usersPlantsID) {
+    @GetMapping ("/updateWateringDays/{usersPlantsID}/{plantSpecies}")
+    public String updateDates(@PathVariable String usersPlantsID, @PathVariable String plantSpecies) {
         System.out.println(usersPlantsID);
+        System.out.println(plantSpecies);
         LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
         System.out.println(wateredDay);
+
+        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
+        int wdays = DBConnection.getWateringDays(plantID);
+
+        LocalDate futureDate = wateredDay.plusDays(wdays);
+        System.out.println(futureDate);
+        DBConnection.updateDates(usersPlantsID, wateredDay, futureDate);
+
 
         return "redirect:/user";
     }
