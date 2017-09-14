@@ -206,11 +206,11 @@ public class DBRepository implements PlantyDBRepository {
         int userPlantsID = Integer.parseInt(usersPlantsID);
 
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("select WateringDate from [UsersPlants] where UsersPlantsID = ?")) {
+            PreparedStatement ps = conn.prepareStatement("select WateringDate from UsersPlants where UsersPlantsID = ?")) {
             ps.setInt(1, userPlantsID);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    LocalDate nextWater = (rs.getDate("WateringDate")).toLocalDate();
+                    LocalDate nextWater = (rs.getDate("wateringdate")).toLocalDate();
                     return nextWater;
                 }
             }catch(SQLException e){
@@ -227,7 +227,7 @@ public class DBRepository implements PlantyDBRepository {
         int parsedDate = Integer.parseInt(usersPlantsID);
 
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("UPDATE [UsersPlants]  SET RegistrationDate = ? , WateringDate = ? WHERE UsersPlantsID = ?")) {
+            PreparedStatement ps = conn.prepareStatement("UPDATE UsersPlants  SET RegistrationDate = ? , WateringDate = ? WHERE UsersPlantsID = ?")) {
             ps.setDate(1, java.sql.Date.valueOf( wateredDay ));
             ps.setDate(2, java.sql.Date.valueOf( futureDate ) );
             ps.setInt(3, parsedDate);
@@ -240,8 +240,8 @@ public class DBRepository implements PlantyDBRepository {
 
     public List<Integer> getDays(int userID) {
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("select A.PlantID, B.DaysUntilWatering from [UsersPlants] as A\n" +
-                    "inner join [Plants] as B on A.PlantID=B.PlantID where A.UserID=?;")) {
+            PreparedStatement ps = conn.prepareStatement("select A.PlantID, B.DaysUntilWatering from UsersPlants as A\n" +
+                    "inner join Plants as B on A.PlantID=B.PlantID where A.UserID=?;")) {
             ps.setInt(1, userID);
             List<Integer> days = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
@@ -256,7 +256,7 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     private Integer rsDays(ResultSet rs) throws SQLException {
-        return new Integer(rs.getInt("DaysUntilWatering"));
+        return new Integer(rs.getInt("daysuntilwatering"));
     }
 
 
@@ -266,7 +266,7 @@ public class DBRepository implements PlantyDBRepository {
             ps.setString(1, plantSpecies);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int plantId = rs.getInt("plantID");
+                    int plantId = rs.getInt("plantid");
                     return plantId;
                 }
             }catch(SQLException e){
@@ -281,12 +281,12 @@ public class DBRepository implements PlantyDBRepository {
     public int getWateringDays(int plantID) {
         int wateringDays =0;
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("select DaysUntilWatering from [Plants] where PlantID=?;"))
+            PreparedStatement ps = conn.prepareStatement("select DaysUntilWatering from Plants where PlantID=?;"))
         {
             ps.setInt(1, plantID);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                     wateringDays = rs.getInt("DaysUntilWatering");
+                     wateringDays = rs.getInt("daysuntilwatering");
                     return wateringDays;
                 }
             }catch(SQLException e){
