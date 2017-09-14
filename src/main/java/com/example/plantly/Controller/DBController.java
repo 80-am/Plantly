@@ -53,6 +53,7 @@ public class DBController {
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
 
+
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
@@ -152,6 +153,14 @@ public class DBController {
     @ResponseBody
     public List<String> getData(){
         return DBConnection.getPlantName();
+    }
+
+    @RequestMapping(path = "/GETD", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getDAYS(HttpSession session){
+        User user = (User)session.getAttribute("user");
+
+        return DBConnection.getDays(user.getUserId());
     }
 
     @GetMapping("/deletePlant/{nickName}")
