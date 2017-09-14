@@ -252,6 +252,7 @@ public class DBRepository implements PlantyDBRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     userPlantList.add(rsUserPlant(rs));
+
                 }
             } catch (SQLException e){
                 System.out.println("Get user plants info exception: " + e.getMessage());
