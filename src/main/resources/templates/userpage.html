@@ -69,6 +69,21 @@
 
 
             <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
+                <!--== clock is located here !!!!-->
+                <div th:if="${!session.userPlantsList.empty}">
+                    <h2  th:text="${session.userPlantsList[0].nickName}"></h2>
+                    <h4 class="needs-water">Needs water in</h4>
+
+                    <div class="col-md-12">
+
+                        <!-- <div class="clock" data-timer="88000" data-unit="Years"></div>-->
+                        <div class="needs-water" th:text="${session.userPlantsList[0].waterDays}"></div>
+                        <div class="needs-water">days</div>
+                        <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
+                </div>
+
+            </div>
+
                 <h2>Add Plant</h2>
                 <form action="/addUserPlant" method="post">
                     <input type="hidden" th:value="${session.user.userId}" name="userId"/>
@@ -88,18 +103,6 @@
                     <button type="submit" class="button button-block" id="my-plantly-form-addbutton" >Add</button>
                 <div th:if="${warning}" th:text="${warning}"></div>
                 </form>
-
-                <!--== clock is located here !!!!-->
-
-                <h2 th:if="${!session.userPlantsList.empty}" th:text="${session.userPlantsList[0].nickName}"></h2>
-                <p class="needs-water">needs water in</p>
-
-                <div class="col-md-12">
-
-                    <div class="clock" data-timer="900" data-unit="Days"></div>
-                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
-
-                </div>
 
             </div>
 
