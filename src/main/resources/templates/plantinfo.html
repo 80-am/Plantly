@@ -65,7 +65,8 @@
             <div class="row ">
                 <div class="col-md-9 vcenter">
                     <div id="circle-shape-example">
-                        <img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>
+                        <!--<img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>-->
+                        <p th:text="'/images/' + ${plant.PlantSpecies} + '.png'"></p>
                         <h1 th:text="${plant.plantSpecies}"></h1>
                         <p th:text="${plant.plantInfo}"></p>
                     </div>
