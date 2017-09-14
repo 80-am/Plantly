@@ -131,12 +131,12 @@
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
                         <td data-th="Water Plant">
-<<<<<<< HEAD
+
                            <button id="water-button"><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button>
-=======
+
 
                             <button id="water-button "><a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">Water</a></button>
->>>>>>> finalWaterUpdates
+
                         </td>
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>

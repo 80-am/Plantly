@@ -199,7 +199,6 @@ public class DBRepository implements PlantyDBRepository {
     }
 
     @Override
-<<<<<<< HEAD
     public LocalDate getWateredDay(String usersPlantsID) {
         int userPlantsID = Integer.parseInt(usersPlantsID);
 
@@ -235,7 +234,7 @@ public class DBRepository implements PlantyDBRepository {
         }
 
     }
-=======
+
     public List<Integer> getDays(int userID) {
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("select A.PlantID, B.DaysUntilWatering from [UsersPlants] as A\n" +
@@ -257,7 +256,6 @@ public class DBRepository implements PlantyDBRepository {
         return new Integer(rs.getInt("DaysUntilWatering"));
     }
 
->>>>>>> 1064d3c02cab2f10a95ec1e8062510a85c3edee0
 
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
