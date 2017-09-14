@@ -86,6 +86,7 @@ public class DBRepository implements PlantyDBRepository {
             ps.executeUpdate();
         }catch(SQLException e){
             System.out.println("Change password:" + e.getMessage());
+            throw new PlantyRepositoryException(e);
         }
     }
 
