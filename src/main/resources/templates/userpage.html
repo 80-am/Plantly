@@ -91,7 +91,7 @@
 
                 <!--== clock is located here !!!!-->
 
-                <h2 th:if="${session.userPlantsList}" th:text="${session.userPlantsList[0].nickName}"></h2>
+                <h2 th:if="${!session.userPlantsList.empty}" th:text="${session.userPlantsList[0].nickName}"></h2>
                 <p class="needs-water">needs water in</p>
 
                 <div class="col-md-12">
