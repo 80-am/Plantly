@@ -18,11 +18,15 @@ public interface PlantyDBRepository {
     boolean nickNameAlreadyExists(String nickName, int userId);
     void changePassword(int userId, String newPassword);
     List<String> getPlantName();
+    List<Integer> getDays(int userID);
     void deletePlantFromUserPlants(String nickName, int userId);
 
+<<<<<<< HEAD
     LocalDate getWateredDay(String usersPlantsID);
 
     void updateDates(String usersPlantsID, LocalDate wateredDay, LocalDate futureDate);
+=======
+>>>>>>> 1064d3c02cab2f10a95ec1e8062510a85c3edee0
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }
