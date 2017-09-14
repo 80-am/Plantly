@@ -235,6 +235,29 @@ public class DBRepository implements PlantyDBRepository {
 
     }
 
+    @Override
+    public List<LocalDate> getAllWDays(int userID) {
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(" select WateringDate from [UsersPlants] where UserID = ? order by WateringDate")) {
+            ps.setInt(1, userID);
+            List<LocalDate> listofNextWDays = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                listofNextWDays.add(rsListofDates(rs));
+            }
+            return listofNextWDays;
+        } catch (SQLException e) {
+            throw new PlantyRepositoryException(e);
+        }
+
+    }
+
+    private LocalDate rsListofDates(ResultSet rs) throws SQLException {
+        return ((rs.getDate("WateringDate")).toLocalDate());
+    }
+
+
+
     public List<Integer> getDays(int userID) {
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("select A.PlantID, B.DaysUntilWatering from [UsersPlants] as A\n" +
@@ -303,7 +326,7 @@ public class DBRepository implements PlantyDBRepository {
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT UsersPlantsID, NickName, PlantSpecies, Poisonous, DaysUntilWatering, LightNeeded " +
+             PreparedStatement ps = conn.prepareStatement("SELECT UsersPlantsID, NickName, PlantSpecies, Poisonous, DaysUntilWatering, LightNeeded, WateringDate " +
                      "FROM UsersPlants " +
                      "JOIN Plants " +
                      "ON UsersPlants.PlantID = Plants.PlantID " +
@@ -330,6 +353,7 @@ public class DBRepository implements PlantyDBRepository {
                rs.getString("PlantSpecies"),
                rs.getString("LightNeeded"),
                rs.getInt("DaysUntilWatering"),
-               rs.getString("Poisonous"));
+               rs.getString("Poisonous"),
+               (rs.getTimestamp("WateringDate")));
     }
 }
