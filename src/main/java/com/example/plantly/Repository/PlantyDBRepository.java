@@ -4,6 +4,7 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PlantyDBRepository {
@@ -18,6 +19,10 @@ public interface PlantyDBRepository {
     void changePassword(int userId, String newPassword);
     List<String> getPlantName();
     void deletePlantFromUserPlants(String nickName, int userId);
+
+    LocalDate getWateredDay(String usersPlantsID);
+
+    void updateDates(String usersPlantsID, LocalDate wateredDay, LocalDate futureDate);
 
     // här kommer vi skriva metod som implementeras i DB Repository
 }

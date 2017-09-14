@@ -144,6 +144,7 @@ public class DBController {
             session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
 
+
         }
         return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
@@ -158,6 +159,25 @@ public class DBController {
     public String deletePlant(@PathVariable String nickName, HttpSession session){
         User user =  (User) session.getAttribute("user");
         DBConnection.deletePlantFromUserPlants(nickName, user.getUserId());
+        return "redirect:/user";
+    }
+
+    @GetMapping ("/updateWateringDays/{usersPlantsID}/{plantSpecies}")
+    public String updateDates(@PathVariable String usersPlantsID, @PathVariable String plantSpecies) {
+        System.out.println(usersPlantsID);
+        System.out.println(plantSpecies);
+       // LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
+        LocalDate wateredDay = LocalDate.now();
+        System.out.println(wateredDay); 
+
+        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
+        int wdays = DBConnection.getWateringDays(plantID);
+
+        LocalDate futureDate = wateredDay.plusDays(wdays);
+        System.out.println(futureDate);
+        DBConnection.updateDates(usersPlantsID, wateredDay, futureDate);
+
+
         return "redirect:/user";
     }
 
