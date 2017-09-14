@@ -166,7 +166,8 @@ public class DBController {
     public String updateDates(@PathVariable String usersPlantsID, @PathVariable String plantSpecies) {
         System.out.println(usersPlantsID);
         System.out.println(plantSpecies);
-        LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
+       // LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
+        LocalDate wateredDay = LocalDate.now();
         System.out.println(wateredDay);
 
         int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
