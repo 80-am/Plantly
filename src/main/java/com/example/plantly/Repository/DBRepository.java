@@ -39,7 +39,7 @@ public class DBRepository implements PlantyDBRepository {
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO users (email, firstname, lastname, password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users (email, firstname, lastname, password) values (?,?,?,?) ", new String[]{"userid"}) ) {
             ps.setString(1, email);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
@@ -47,8 +47,9 @@ public class DBRepository implements PlantyDBRepository {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
+            throw new PlantyRepositoryException(e);
         }
-        return false;
+//        return false;
     }
 
     public List<User> getAllUsers() {
@@ -140,7 +141,7 @@ public class DBRepository implements PlantyDBRepository {
         }
         return null;
     }
-    
+
     public boolean nickNameAlreadyExists(String nickName, int userId){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT NickName FROM UsersPlants WHERE UserId = ? AND NickName = ?")) {
