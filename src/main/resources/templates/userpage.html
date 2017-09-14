@@ -68,8 +68,7 @@
 
                 <div class="col-md-3">
 
-                    <div class="my-plantly-form" id="my-plantly-add-div">
-                        <div th:if="${!session.userPlantsList.empty}">
+                        <div class="my-plantly-form" id="my-plantly-add-div" th:if="${!session.userPlantsList.empty}">
                             <h2 th:text="${session.userPlantsList[0].nickName}"></h2>
                             <h4 class="needs-water">Needs water in</h4>
 
@@ -78,7 +77,7 @@
                                 <h4 class="needs-water" th:text="${session.userPlantsList[0].daysLeft + ' days'}"></h4>
 
                     </div>
-                </div>
+
 
                 <div class="my-plantly-form">
                     <h2>Add Plant</h2>
@@ -111,27 +110,24 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Light</th>
-                        <th>Water</th>
+                        <th>Needs water in</th>
                         <th>Water plant</th>
-                        <th></th>
                         <th>Remove</th>
                     </tr>
 
                     <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
                     <tr th:each="plantInfo : ${session.userPlantsList}">
-                        <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
-                        <td data-th="Type">
+                        <td data-th="Nickname " th:text="${plantInfo.nickName}"></td>
+                        <td data-th="Plant species ">
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
-                        <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
-                        <td data-th="Water Needs" th:text="${plantInfo.daysLeft}"></td>
+                        <td data-th="Light " th:text="${plantInfo.lightNeeded}"></td>
+                        <td data-th="Needs water in " th:text="${plantInfo.daysLeft} + ' days'"></td>
                         <td data-th="Water Plant">
-
                             <a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">
                                 <button class="water-button">Water</button>
                             </a>
-
                         </td>
 
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
