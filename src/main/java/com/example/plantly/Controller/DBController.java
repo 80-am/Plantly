@@ -4,6 +4,7 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 
@@ -173,20 +175,13 @@ public class DBController {
 
     @GetMapping ("/updateWateringDays/{usersPlantsID}/{plantSpecies}")
     public String updateDates(@PathVariable String usersPlantsID, @PathVariable String plantSpecies) {
-        System.out.println(usersPlantsID);
-        System.out.println(plantSpecies);
        // LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
         LocalDate wateredDay = LocalDate.now();
-        System.out.println(wateredDay); 
-
         int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
         int wdays = DBConnection.getWateringDays(plantID);
-
         LocalDate futureDate = wateredDay.plusDays(wdays);
-        System.out.println(futureDate);
         DBConnection.updateDates(usersPlantsID, wateredDay, futureDate);
-
-
+        System.out.println(ChronoUnit.DAYS.between(LocalDate.parse(wateredDay.toString()),LocalDate.parse(futureDate.toString())));
         return "redirect:/user";
     }
 
