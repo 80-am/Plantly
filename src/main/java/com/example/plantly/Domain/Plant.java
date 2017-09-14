@@ -49,4 +49,27 @@ public class Plant {
         this.plantGenus = plantGenus;
         this.plantId = plantId;
     }
+
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "plantSpecies='" + plantSpecies + '\'' +
+                ", plantGenus='" + plantGenus + '\'' +
+                ", plantInfo='" + plantInfo + '\'' +
+                ", water='" + water + '\'' +
+                ", temperature='" + temperature + '\'' +
+                ", humidity='" + humidity + '\'' +
+                ", flowering='" + flowering + '\'' +
+                ", pests='" + pests + '\'' +
+                ", diseases='" + diseases + '\'' +
+                ", soil='" + soil + '\'' +
+                ", potSize='" + potSize + '\'' +
+                ", poisonous='" + poisonous + '\'' +
+                ", daysUntilWatering=" + daysUntilWatering +
+                ", fertilizer='" + fertilizer + '\'' +
+                ", light='" + light + '\'' +
+                ", lightNeeded='" + lightNeeded + '\'' +
+                ", plantId=" + plantId +
+                '}';
+    }
 }

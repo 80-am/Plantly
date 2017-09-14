@@ -112,6 +112,7 @@ public class DBController {
     @GetMapping("/plantinfo/{plantSpecies}")
     public ModelAndView plantinfo(@PathVariable String plantSpecies) {
         Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
+        System.out.println(plant);
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
