@@ -173,10 +173,23 @@ public class DBController {
         LocalDate regdate = LocalDate.now();
         LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
 
+
+
         if(!nickNameExists){
 
             DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(futureDate));
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
+
+            LocalDate from = LocalDate.now();
+            LocalDate to = null;
+            long diff = 0;
+
+            for(int i=0; i<userPlantList.size(); i++) {
+                to = userPlantList.get(i).waterDate.toLocalDateTime().toLocalDate();
+                diff = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+                System.out.println(diff + " " +  from + " " + to);
+                userPlantList.get(i).daysLeft = diff;
+            }
             session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
 

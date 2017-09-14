@@ -66,47 +66,43 @@
     <div class="row">
         <div class="col-md-12 content-area content-padding">
 
+                <div class="col-md-3">
 
+                    <div class="my-plantly-form" id="my-plantly-add-div">
+                        <div th:if="${!session.userPlantsList.empty}">
+                            <h2 th:text="${session.userPlantsList[0].nickName}"></h2>
+                            <h4 class="needs-water">Needs water in</h4>
 
-            <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
-                <!--== clock is located here !!!!-->
-                <div th:if="${!session.userPlantsList.empty}">
-                    <h2  th:text="${session.userPlantsList[0].nickName}"></h2>
-                    <h4 class="needs-water">Needs water in</h4>
+                                <!--<div th:attr="data-timer=${time}" class="clock" data-unit="Days"></div>-->
+                                <!-- <div class="clock" data-timer="88000" data-unit="Years"></div>-->
+                                <h4 class="needs-water" th:text="${session.userPlantsList[0].daysLeft + ' days'}"></h4>
 
-                    <div class="col-md-12">
-                        <!--<div th:attr="data-timer=${time}" class="clock" data-unit="Days"></div>-->
-                        <!-- <div class="clock" data-timer="88000" data-unit="Years"></div>-->
-                        <div class="needs-water" th:text="${session.userPlantsList[0].waterDays}"></div>
-                        <div class="needs-water">days</div>
-                        <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
+                    </div>
                 </div>
 
+                <div class="my-plantly-form">
+                    <h2>Add Plant</h2>
+                    <form action="/addUserPlant" method="post">
+                        <input type="hidden" th:value="${session.user.userId}" name="userId"/>
+                        <div class="field-wrap">
+                            <label>
+                                Nickname: <span class="req"></span>
+                            </label>
+                            <input type="text" name="nickName" required="required" autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Plant Species: <span class="req"></span>
+                            </label>
+                            <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
+                        </div>
+
+                        <button type="submit" class="button button-block" id="my-plantly-form-addbutton">Add</button>
+                        <div th:if="${warning}" th:text="${warning}"></div>
+                    </form>
+                </div>
             </div>
-
-                <h2>Add Plant</h2>
-                <form action="/addUserPlant" method="post">
-                    <input type="hidden" th:value="${session.user.userId}" name="userId"/>
-                    <div class="field-wrap">
-                        <label>
-                            Nickname: <span class="req"></span>
-                        </label>
-                        <input type="text" name="nickName" required="required" autocomplete="off"/>
-                    </div>
-                    <div class="field-wrap">
-                        <label>
-                            Plant Species: <span class="req"></span>
-                        </label>
-                        <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
-                    </div>
-
-                    <button type="submit" class="button button-block" id="my-plantly-form-addbutton" >Add</button>
-                <div th:if="${warning}" th:text="${warning}"></div>
-                </form>
-
-            </div>
-
-           <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
 
             <div class="col-md-8 my-plantly-form">
                 <h2>My Plants</h2>
@@ -131,14 +127,13 @@
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.daysLeft}"></td>
                         <td data-th="Water Plant">
-                         <!-- <button id="water-button"><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button> -->
-                            <button id="water-button"><a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">Water</a></button>
+
+                            <a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">
+                                <button class="water-button">Water</button>
+                            </a>
 
                         </td>
-                      <!--  <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
-                            <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
-                        <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
-                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td> -->
+
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
                         </a>

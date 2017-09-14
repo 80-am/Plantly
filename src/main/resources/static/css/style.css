@@ -552,7 +552,7 @@ svg {
   -webkit-appearance: none;
 }
 
-#water-button {
+.water-button {
   font-size: smaller;
   border: 0;
   outline: none;
@@ -567,10 +567,10 @@ svg {
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
-#water-button a {
+.water-button a {
 color: white;
 }
-#water-button:hover {
+.water-button:hover {
   background: #179b77;
 }
 .my-plantly-form .button:hover, .button:focus {
@@ -611,5 +611,4 @@ color: white;
 }
 .needs-water{
   text-align: center;
-  font-size: 18px;
 }
