@@ -565,6 +565,9 @@ svg {
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
+#water-button a {
+color: white;
+}
 #water-button:hover {
   background: #179b77;
 }
@@ -603,4 +606,8 @@ svg {
 
 .ui-helper-hidden-accessible {
   visibility: hidden;
+}
+.needs-water{
+  text-align: center;
+  font-size: 18px;
 }

@@ -184,12 +184,12 @@ public class DBRepository implements PlantyDBRepository {
 
     /* DELETE PLANT FROM USER DB */
 
-    @Override
-    public void deletePlantFromUserPlants(String nickName) {
+    public void deletePlantFromUserPlants(String nickName, int userId) {
         if(nickName != null){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("DELETE FROM UsersPlants WHERE NickName = ?")) {
+                 PreparedStatement ps = conn.prepareStatement("DELETE FROM UsersPlants WHERE NickName = ? AND UserID = ?")) {
                 ps.setString(1,nickName);
+                ps.setInt(2, userId);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Delete plant from User exception: " + e.getMessage());

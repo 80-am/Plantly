@@ -91,7 +91,8 @@
 
                 <!--== clock is located here !!!!-->
 
-                <h2>Water Time</h2>
+                <h2 th:if="${session.userPlantsList}" th:text="${session.userPlantsList[0].nickName}"></h2>
+                <p class="needs-water">needs water in</p>
 
                 <div class="col-md-12">
 
@@ -118,7 +119,7 @@
                     </tr>
 
                     <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
-                    <tr th:each="plantInfo : ${session.userPlansList}">
+                    <tr th:each="plantInfo : ${session.userPlantsList}">
                         <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
                         <td data-th="Type">
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
@@ -127,7 +128,7 @@
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
                         <td data-th="Water Plant">
-                            <button id="water-button "><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button>
+                           <button id="water-button"><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button>
                         </td>
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
