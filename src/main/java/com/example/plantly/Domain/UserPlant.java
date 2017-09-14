@@ -3,6 +3,7 @@ package com.example.plantly.Domain;
 import java.sql.Timestamp;
 
 public class UserPlant {
+    public int UsersPlantsID;
     public String nickName;
     public String plantSpecies;
     public String lightNeeded;
@@ -28,6 +29,16 @@ public class UserPlant {
         this.poison = poison;
         this.regDate = regDate;
         this.waterDate = waterDate;
+
+    }
+
+    public UserPlant(int UsersPlantsID, String nickName, String plantSpecies, String lightNeeded, int waterDays, String poison) {
+        this.UsersPlantsID = UsersPlantsID;
+        this.nickName = nickName;
+        this.plantSpecies = plantSpecies;
+        this.lightNeeded = lightNeeded;
+        this.waterDays = waterDays;
+        this.poison = poison;
 
     }
 }

@@ -145,6 +145,7 @@ public class DBController {
             session.setAttribute("userPlansList", userPlantList);
             return new ModelAndView("userpage");
 
+
         }
         return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
@@ -158,6 +159,13 @@ public class DBController {
     @GetMapping("/deletePlant/{nickName}")
     public String deletePlant(@PathVariable String nickName){
         DBConnection.deletePlantFromUserPlants(nickName);
+        return "redirect:/user";
+    }
+
+    @GetMapping ("/updateWateringDays/{usersPlantsID}")
+    public String updateDates(@PathVariable String usersPlantsID) {
+        System.out.println(usersPlantsID);
+
         return "redirect:/user";
     }
 
