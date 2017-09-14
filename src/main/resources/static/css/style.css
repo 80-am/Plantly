@@ -34,6 +34,7 @@ a:focus {
 #form .infoWarning {
   color: white;
   text-align: center;
+  margin-top: 20px;
 }
 .bg-light {
   background-color: #eee;
