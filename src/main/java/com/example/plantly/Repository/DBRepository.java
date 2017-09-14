@@ -160,21 +160,27 @@ public class DBRepository implements PlantyDBRepository {
         return false;
     }
     @Override
-    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
+    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies, java.sql.Date regDate, java.sql.Date waterDate){
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
+                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID, RegistrationDate, WateringDate) VALUES(?,?,?,?,?,?)")) {
                 ps.setInt(1, userId);
                 ps.setString(2, nickName);
                 ps.setString(3, photo);
                 ps.setInt(4, plantId);
+                ps.setDate(5, regDate);
+                ps.setDate(6, waterDate);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Add plant to User exception: " + e.getMessage());
             }
         }
     }
+
+
+
+
 
     /* DELETE PLANT FROM USER DB */
 
@@ -208,6 +214,28 @@ public class DBRepository implements PlantyDBRepository {
             throw new PlantyRepositoryException(e);
         }
         return 0;
+    }
+
+    public int getWateringDays(int plantID) {
+        int wateringDays =0;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("select DaysUntilWatering from [Plants] where PlantID=?;"))
+        {
+            ps.setInt(1, plantID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                     wateringDays = rs.getInt("DaysUntilWatering");
+                    return wateringDays;
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                return 0;
+            }
+        }catch (SQLException e){
+            throw new PlantyRepositoryException(e);
+        }
+        System.out.println("here are we");
+        return wateringDays;
     }
 
     @Override

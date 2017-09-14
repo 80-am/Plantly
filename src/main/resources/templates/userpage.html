@@ -125,7 +125,21 @@
                         </td>
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+<<<<<<< HEAD
                         <td data-th="Water Plant"><button id="water-button">Water</button></td>
+=======
+
+                        <td data-th="Water Plant">
+
+                            <button id="water-button ">Water</button>
+                        </td>
+
+                        <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
+                            <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
+                        <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
+                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td>
+
+>>>>>>> DBDates
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
                         </a>
