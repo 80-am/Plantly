@@ -109,21 +109,21 @@ public class DBController {
         }
     }
 
+    @GetMapping("/plantinfo/{plantSpecies}")
+    public ModelAndView plantinfo(@PathVariable String plantSpecies) {
+        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
+        return new ModelAndView("plantinfo").addObject("plant", plant);
+    }
+
+
+//    ERRORR DEBUGGING
 //    @GetMapping("/plantinfo/{plantSpecies}")
 //    @ResponseBody
-//    public ModelAndView plantinfo(@PathVariable String plantSpecies) {
+//    public Plant plantinfo(@PathVariable String plantSpecies) {
 //        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
 //        System.out.println(plant);
-//        return new ModelAndView("plantinfo").addObject("plant", plant);
+//        return plant;
 //    }
-
-    @GetMapping("/plantinfo/{plantSpecies}")
-    @ResponseBody
-    public Plant plantinfo(@PathVariable String plantSpecies) {
-        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
-        System.out.println(plant);
-        return plant;
-    }
 
     @GetMapping("/addplant")
     public String addplant(){

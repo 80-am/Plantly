@@ -117,7 +117,7 @@ public class DBRepository implements PlantyDBRepository {
                             rs.getString("PlantGenus"),
                             rs.getString("PlantInfo"),
                             rs.getString("Water"),
-                            rs.getString("Tempature"),
+                            rs.getString("Temperature"),
                             rs.getString("Humidity"),
                             rs.getString("Flowering"),
                             rs.getString("Pests"),
@@ -133,12 +133,12 @@ public class DBRepository implements PlantyDBRepository {
                     return plant;
                 }
             }catch(SQLException e){
-                return null;
+                throw new PlantyRepositoryException("Failure in SQL-query!");
             }
         }catch(SQLException e){
             throw new PlantyRepositoryException("Connection in getPlantByPlantSpecies failed!");
         }
-        return null;
+        //return null;
     }
     public boolean nickNameAlreadyExists(String nickName, int userId){
         try(Connection conn = dataSource.getConnection();
