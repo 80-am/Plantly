@@ -96,7 +96,7 @@
                 <div class="col-md-12">
 
                     <div class="clock" data-timer="900" data-unit="Days"></div>
-                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Restart</button>
+                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
 
                 </div>
 
@@ -113,6 +113,7 @@
                         <th>Light</th>
                         <th>Water</th>
                         <th>Water plant</th>
+                        <th></th>
                         <th>Remove</th>
                     </tr>
 
@@ -125,7 +126,6 @@
                         </td>
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-                        <td data-th="Water Plant"><button id="water-button">Water</button></td>
                         <td data-th="Water Plant">
                             <button id="water-button "><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button>
                         </td>
