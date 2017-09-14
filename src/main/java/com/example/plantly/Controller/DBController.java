@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -42,7 +44,7 @@ public class DBController {
         User user = DBConnection.getCurrentUser(email, password);
         List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
         session.setAttribute("user", user);
-        session.setAttribute("userPlansList", userPlantList);
+        session.setAttribute("userPlantsList", userPlantList);
         return new ModelAndView("userpage");
     }
 
@@ -54,7 +56,7 @@ public class DBController {
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
-            session.setAttribute("userPlansList", userPlantList);
+            session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
         }
         return new ModelAndView("index").addObject("infoLogin", "Invalid email or password!");
@@ -66,8 +68,8 @@ public class DBController {
         if (session.getAttribute("user") != null) {
             User user = (User)session.getAttribute("user");
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
-            session.setAttribute("userPlansList", userPlantList);
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList);
+            session.setAttribute("userPlantsList", userPlantList);
+            return new ModelAndView("userpage").addObject("userPlantsList", userPlantList);
         }
         return new ModelAndView("redirect:/");
     }
@@ -118,14 +120,30 @@ public class DBController {
         return "addplant";
     }
 
+    @PostMapping("/updateSql")
+    public ModelAndView updateDates(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        
+        return new ModelAndView("userpage");
+    }
+
     @PostMapping("/addUserPlant")
     public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
+
+        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
+        int wdays = DBConnection.getWateringDays(plantID);
+
+        LocalDate regdate = LocalDate.now();
+        LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
+
         if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
+
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(futureDate));
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
-            session.setAttribute("userPlansList", userPlantList);
+            session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
+
         }
         return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
@@ -137,8 +155,9 @@ public class DBController {
     }
 
     @GetMapping("/deletePlant/{nickName}")
-    public String deletePlant(@PathVariable String nickName){
-        DBConnection.deletePlantFromUserPlants(nickName);
+    public String deletePlant(@PathVariable String nickName, HttpSession session){
+        User user =  (User) session.getAttribute("user");
+        DBConnection.deletePlantFromUserPlants(nickName, user.getUserId());
         return "redirect:/user";
     }
 
@@ -146,8 +165,6 @@ public class DBController {
     public String testClock(){
         return  "clock";
     }
-
-
 
 
 }

@@ -74,7 +74,7 @@
                     <input type="hidden" th:value="${session.user.userId}" name="userId"/>
                     <div class="field-wrap">
                         <label>
-                            Plant Nickname: <span class="req"></span>
+                            Nickname: <span class="req"></span>
                         </label>
                         <input type="text" name="nickName" required="required" autocomplete="off"/>
                     </div>
@@ -91,12 +91,13 @@
 
                 <!--== clock is located here !!!!-->
 
-                <h2>Water Time</h2>
+                <h2 th:if="${session.userPlantsList}" th:text="${session.userPlantsList[0].nickName}"></h2>
+                <p class="needs-water">needs water in</p>
 
                 <div class="col-md-12">
 
                     <div class="clock" data-timer="900" data-unit="Days"></div>
-                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Restart</button>
+                    <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
 
                 </div>
 
@@ -111,14 +112,14 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Light</th>
-                        <th sort="water">Water</th>
+                        <th>Water</th>
                         <th>Water plant</th>
-                        <th>Poisonous</th>
+                        <th></th>
                         <th>Remove</th>
                     </tr>
 
                     <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
-                    <tr th:each="plantInfo : ${session.userPlansList}">
+                    <tr th:each="plantInfo : ${session.userPlantsList}">
                         <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
                         <td data-th="Type">
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
@@ -126,14 +127,13 @@
                         </td>
                         <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
                         <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
-
-                        <td data-th="Water Plant"><button id="water-button">Water</button></td>
-
+                        <td data-th="Water Plant">
+                           <button id="water-button"><a th:href="'updateWateringDays' + ${plantInfo.nickName}">Water</a></button>
+                        </td>
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '1'}">
                             <span class="glyphicon glyphicon-alert glyphicon-red" aria-hidden="true"></span></td>
                         <td data-th="Poisonous" th:if="${plantInfo.poison == '0'}">
                             <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span></td>
-
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
                         </a>
@@ -145,7 +145,6 @@
             </div>
         </div>
     </div>
-    <p id="footer">Copyright 2017 TEAM PLANTLY</p>
 </div>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 <script src="/bootstrap/js/bootstrap.min.js"></script>

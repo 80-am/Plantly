@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// här vi kommer skriva alla som gäller koppling med databas och
+//Queries to the database
 
 @Component
 public class DBRepository implements PlantyDBRepository {
@@ -160,15 +160,17 @@ public class DBRepository implements PlantyDBRepository {
         return false;
     }
     @Override
-    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies){
+    public void addPlantToUserPlants(String nickName, String photo, int userId, String plantSpecies, java.sql.Date regDate, java.sql.Date waterDate){
         int plantId = getPlantIdFromPlants(plantSpecies);
         if(plantId != 0){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID) VALUES(?,?,?,?)")) {
+                 PreparedStatement ps = conn.prepareStatement("INSERT INTO UsersPlants(UserID, NickName, Photo, PlantID, RegistrationDate, WateringDate) VALUES(?,?,?,?,?,?)")) {
                 ps.setInt(1, userId);
                 ps.setString(2, nickName);
                 ps.setString(3, photo);
                 ps.setInt(4, plantId);
+                ps.setDate(5, regDate);
+                ps.setDate(6, waterDate);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Add plant to User exception: " + e.getMessage());
@@ -176,14 +178,18 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
+
+
+
+
     /* DELETE PLANT FROM USER DB */
 
-    @Override
-    public void deletePlantFromUserPlants(String nickName) {
+    public void deletePlantFromUserPlants(String nickName, int userId) {
         if(nickName != null){
             try (Connection conn = dataSource.getConnection();
-                 PreparedStatement ps = conn.prepareStatement("DELETE FROM UsersPlants WHERE NickName = ?")) {
+                 PreparedStatement ps = conn.prepareStatement("DELETE FROM UsersPlants WHERE NickName = ? AND UserID = ?")) {
                 ps.setString(1,nickName);
+                ps.setInt(2, userId);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.out.println("Delete plant from User exception: " + e.getMessage());
@@ -210,6 +216,28 @@ public class DBRepository implements PlantyDBRepository {
         return 0;
     }
 
+    public int getWateringDays(int plantID) {
+        int wateringDays =0;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("select DaysUntilWatering from [Plants] where PlantID=?;"))
+        {
+            ps.setInt(1, plantID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                     wateringDays = rs.getInt("DaysUntilWatering");
+                    return wateringDays;
+                }
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+                return 0;
+            }
+        }catch (SQLException e){
+            throw new PlantyRepositoryException(e);
+        }
+        System.out.println("here are we");
+        return wateringDays;
+    }
+
     @Override
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
@@ -224,6 +252,7 @@ public class DBRepository implements PlantyDBRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     userPlantList.add(rsUserPlant(rs));
+
                 }
             } catch (SQLException e){
                 System.out.println("Get user plants info exception: " + e.getMessage());
