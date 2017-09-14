@@ -113,23 +113,23 @@ public class DBRepository implements PlantyDBRepository {
             ps.setString(1, plantSpecies);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Plant plant = new Plant(rs.getString("PlantSpecies"),
-                            rs.getString("PlantGenus"),
-                            rs.getString("PlantInfo"),
-                            rs.getString("Water"),
-                            rs.getString("Temperature"),
-                            rs.getString("Humidity"),
-                            rs.getString("Flowering"),
-                            rs.getString("Pests"),
-                            rs.getString("Diseases"),
-                            rs.getString("Soil"),
-                            rs.getString("PotSize"),
-                            rs.getString("Poisonous"),
-                            rs.getInt("DaysUntilWatering"),
-                            rs.getString("Fertilizer"),
-                            rs.getString("Light"),
-                            rs.getString("LightNeeded"),
-                            rs.getInt("plantID"));
+                    Plant plant = new Plant(rs.getString("plantspecies"),
+                            rs.getString("plantgenus"),
+                            rs.getString("plantinfo"),
+                            rs.getString("water"),
+                            rs.getString("temperature"),
+                            rs.getString("humidity"),
+                            rs.getString("flowering"),
+                            rs.getString("pests"),
+                            rs.getString("diseases"),
+                            rs.getString("soil"),
+                            rs.getString("potsize"),
+                            rs.getString("poisonous"),
+                            rs.getInt("daysuntilwatering"),
+                            rs.getString("fertilizer"),
+                            rs.getString("light"),
+                            rs.getString("lightNeeded"),
+                            rs.getInt("plantid"));
                     return plant;
                 }
             }catch(SQLException e){
@@ -138,8 +138,9 @@ public class DBRepository implements PlantyDBRepository {
         }catch(SQLException e){
             throw new PlantyRepositoryException("Connection in getPlantByPlantSpecies failed!");
         }
-        //return null;
+        return null;
     }
+    
     public boolean nickNameAlreadyExists(String nickName, int userId){
         try(Connection conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT NickName FROM UsersPlants WHERE UserId = ? AND NickName = ?")) {
