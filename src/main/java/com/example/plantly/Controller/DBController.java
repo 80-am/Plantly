@@ -4,7 +4,6 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,9 +28,9 @@ public class DBController {
     }
 
     @GetMapping("/about")
-	public String about() {
-		return "about";
-	}
+    public String about() {
+        return "about";
+    }
 
     @PostMapping("/signup")
     public ModelAndView signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password, HttpSession session) {
@@ -54,7 +52,6 @@ public class DBController {
     public ModelAndView loggedin(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
-
 
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
@@ -118,6 +115,16 @@ public class DBController {
         return new ModelAndView("plantinfo").addObject("plant", plant);
     }
 
+
+//    ERRORR DEBUGGING
+//    @GetMapping("/plantinfo/{plantSpecies}")
+//    @ResponseBody
+//    public Plant plantinfo(@PathVariable String plantSpecies) {
+//        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
+//        System.out.println(plant);
+//        return plant;
+//    }
+
     @GetMapping("/addplant")
     public String addplant(){
         return "addplant";
@@ -147,7 +154,6 @@ public class DBController {
             session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
 
-
         }
         return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
@@ -158,30 +164,10 @@ public class DBController {
         return DBConnection.getPlantName();
     }
 
-    @RequestMapping(path = "/GETD", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Integer> getDAYS(HttpSession session){
-        User user = (User)session.getAttribute("user");
-
-        return DBConnection.getDays(user.getUserId());
-    }
-
     @GetMapping("/deletePlant/{nickName}")
     public String deletePlant(@PathVariable String nickName, HttpSession session){
         User user =  (User) session.getAttribute("user");
         DBConnection.deletePlantFromUserPlants(nickName, user.getUserId());
-        return "redirect:/user";
-    }
-
-    @GetMapping ("/updateWateringDays/{usersPlantsID}/{plantSpecies}")
-    public String updateDates(@PathVariable String usersPlantsID, @PathVariable String plantSpecies) {
-       // LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
-        LocalDate wateredDay = LocalDate.now();
-        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
-        int wdays = DBConnection.getWateringDays(plantID);
-        LocalDate futureDate = wateredDay.plusDays(wdays);
-        DBConnection.updateDates(usersPlantsID, wateredDay, futureDate);
-        System.out.println(ChronoUnit.DAYS.between(LocalDate.parse(wateredDay.toString()),LocalDate.parse(futureDate.toString())));
         return "redirect:/user";
     }
 
@@ -192,4 +178,3 @@ public class DBController {
 
 
 }
-
