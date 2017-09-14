@@ -30,7 +30,6 @@ public class DBRepository implements PlantyDBRepository {
     public boolean userExists(String email, String password) {
         List<User> getAllUsers = getAllUsers();
         for(User u: getAllUsers) {
-            System.out.println("-" + u.getEmail() + "-" + u.getPassword());
             if(u.getEmail().equals(email) && u.getPassword().equals(password))
                 return true;
         }
@@ -40,7 +39,7 @@ public class DBRepository implements PlantyDBRepository {
     @Override
     public boolean addUser(String email, String firstname, String lastname, String password) {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO Users (Email, FirstName, LastName, Password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO users (email, firstname, lastname, password) values (?,?,?,?) ", new String[]{"UserID"}) ) {
             ps.setString(1, email);
             ps.setString(2, firstname);
             ps.setString(3, lastname);
@@ -215,11 +214,12 @@ public class DBRepository implements PlantyDBRepository {
     public List<UserPlant> getUserPlantsInfo(int userId) {
         List<UserPlant> userPlantList = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select nickname, plantspecies, poisonous, daysuntilwatering, lightneeded " +
-                     "From usersplants " +
-                     "Join plants " +
-                     "On usersplants.plantid = plants.plantid " +
-                     "Where userid= ?")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT NickName, PlantSpecies, Poisonous, DaysUntilWatering, LightNeeded " +
+                     "FROM UsersPlants " +
+                     "JOIN Plants " +
+                     "ON UsersPlants.PlantID = Plants.PlantID " +
+                     "WHERE UserID = ? " +
+                     "ORDER BY DaysUntilWatering")) {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
