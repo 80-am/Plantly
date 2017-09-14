@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// här vi kommer skriva alla som gäller koppling med databas och
+//Queries to the database
 
 @Component
 public class DBRepository implements PlantyDBRepository {
