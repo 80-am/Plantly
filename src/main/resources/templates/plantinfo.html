@@ -10,13 +10,15 @@
         <title>PLANTINFO | PLANTLY</title>
 
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="/css/plantInfo.css"/>
         <link rel="stylesheet" href="/css/style.css"/>
-        <script src="/bootstrap/js/bootstrap.js"></script>
+
     </head>
+
     <body>
 
     <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -30,24 +32,25 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">home</a></li>
                         <li><a href="/about">about</a></li>
-                        <li><a class="nav-link" id="loginButton" th:unless="${session.user}" th:text="'log in'"></a></li>
+                        <li>
+                            <a class="nav-link" id="loginButton" th:unless="${session.user}" th:text="'log in'"></a>
+                        </li>
                         <!-- Dropdown -->
                         <li class="dropdown">
                             <a href="user" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false"
                                th:if="${session.user}" th:text="${session.user.firstname} + ' &dtrif; ' "></a>
                             <ul class="dropdown-menu">
-                                <li><a href="user">
+                                <li><a href="/user">
                                     <span class="glyphicon glyphicon-grain" aria-hidden="true"></span> | myplantly</a>
                                 </li>
-                                <li><a href="logout">
-                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> | log out</a>
-                                </li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">
+                                <li><a href="/changePassword">
                                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> | change password</a>
+                                </li>
+                                <li><a href="/logout">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> | log out</a>
                                 </li>
                             </ul>
                         </li>
@@ -65,53 +68,81 @@
                         <img th:src="'/images/' + ${plant.plantSpecies} + '.png'" class="curve"/>
                         <h1 th:text="${plant.plantSpecies}"></h1>
                         <p th:text="${plant.plantInfo}"></p>
-                        <p th:text="${plant.water}"></p>
-                        <p>
-                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-tint glyphicon-blue" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-tint glyphicon-grey" aria-hidden="true"></span>
-                        </p>
-                        <p>
-                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-warning-sign glyphicon-red" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-warning-sign glyphicon-grey" aria-hidden="true"></span>
-                        </p>
-                        <p>
-                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cutlery glyphicon-green" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cutlery glyphicon-grey" aria-hidden="true"></span>
-                        </p>
-                        <p>
-                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-certificate glyphicon-yellow" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-certificate glyphicon-grey" aria-hidden="true"></span>
-                        </p>
-                        <p>
-                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-cloud glyphicon-grey" aria-hidden="true"></span>
-                        </p>
                     </div>
                 </div>
             </div>
         </div>
+    <!-- SCROLL DOWN ARROW -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <section>
+        <a href="#" class="scroll-down" address="true"></a>
+    </section>
+    <section class="ok">
+
+        <div class="tab">
+
+            <a id="top" href="#top"><h2 th:text="${plant.plantSpecies}"></h2></a>
+
+            <ul class="tabs">
+                <li><a href="#">Water</a></li>
+                <li><a href="#">Temperature</a></li>
+                <li><a href="#">Flowering</a></li>
+                <li><a href="#">Pests</a></li>
+                <li><a href="#">Light</a></li>
+                <li><a href="#">Fertilizer</a></li>
+            </ul> <!-- / tabs -->
+
+            <div class="tab_content">
+
+                <div class="tabs_item">
+                    <img src="https://blogimages.serenataassets.com/pollennation/wp-content/uploads/2015/07/plants-watering-FT.png"/>
+                    <h4>Watering needs</h4>
+                    <p th:text="${plant.water}"></p>
+                </div> <!-- / tabs_item -->
+
+                <div class="tabs_item">
+                    <img src="https://images.blogthings.com/whatsyoursoulssecretquiz/desert-2.jpg"/>
+                    <h4>Temperature</h4>
+                    <p th:text="${plant.temperature}"></p>
+                </div> <!-- / tabs_item -->
+
+                <div class="tabs_item">
+                    <img src="https://ae01.alicdn.com/kf/HTB1sNnZRVXXXXXgaXXXq6xXFXXXb/All-New-Fashion-5-Colors-font-b-Plastic-b-font-Artificial-font-b-Bonsai-b-font.jpg"/>
+                    <h4>Flower Power</h4>
+                    <p th:text="${plant.flowering}"></p>
+                </div> <!-- / tabs_item -->
+
+                <div class="tabs_item">
+                    <img src="http://commonsensehome.com/wp-content/uploads/2012/02/squash-bug-eggs.jpg"/>
+                    <h4>Pests</h4>
+                    <p th:text="${plant.pests}"></p>
+                </div> <!-- / tabs_item -->
+
+                <div class="tabs_item">
+                    <img src="https://previews.123rf.com/images/kasto/kasto1602/kasto160200104/53599767-The-warm-autumn-sun-shining-through-colorful-treetops-with-beautiful-bright-blue-sky-Square-composit-Stock-Photo.jpg"/>
+                    <h4>Lights</h4>
+                    <p th:text="${plant.light}"></p>
+                </div> <!-- / tabs_item -->
+
+                <div class="tabs_item">
+                    <img src="http://4.imimg.com/data4/JW/LJ/MY-13524243/agricultural-fertilizers-500x500.jpg "/>
+                    <h4>Fertilizers</h4>
+                    <p th:text="${plant.fertilizer}"></p>
+                </div> <!-- / tabs_item -->
+
+            </div> <!-- / tab_content -->
+        </div> <!-- / tab -->
+
+
+    </section>
+
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/bootstrap/js/bootstrap.min.js"></script>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js'></script>
-        <script src="/js/index.js"></script>
-        <script src="/js/table.js"></script>
+    <script src="/js/plantInfo.js"></script>
+    <script src="/js/index.js"></script>
     </body>
 </html>

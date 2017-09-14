@@ -4,8 +4,6 @@ import com.example.plantly.Domain.Plant;
 import com.example.plantly.Domain.User;
 import com.example.plantly.Domain.UserPlant;
 import com.example.plantly.Repository.DBRepository;
-import com.example.plantly.Repository.PlantyDBRepository;
-import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -33,16 +33,19 @@ public class DBController {
 	}
 
     @PostMapping("/signup")
-    public String signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password) {
+    public ModelAndView signup(Model model, @RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String password, HttpSession session) {
         List<User> allUsers = DBConnection.getAllUsers();
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).getEmail().equals(email)) {
-                model.addAttribute("info", "User with this email already exists");
-                return "redirect:/";
+                return new ModelAndView("index").addObject("infoSignup", "User already exists!");
             }
         }
         DBConnection.addUser(email, firstname, lastname, password);
-        return "redirect:/";
+        User user = DBConnection.getCurrentUser(email, password);
+        List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
+        session.setAttribute("user", user);
+        session.setAttribute("userPlantsList", userPlantList);
+        return new ModelAndView("userpage");
     }
 
     @PostMapping("/user")
@@ -54,21 +57,10 @@ public class DBController {
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
-            System.out.println(userPlantList.get(0).waterDays);
-
-            int nextPlant = userPlantList.get(0).waterDays;
-
-            for(UserPlant up: userPlantList){
-               if(up.waterDays>nextPlant) {
-                   nextPlant=up.waterDays;
-               }
-            }
-
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList)
-                                                        .addObject("time", nextPlant);
+            session.setAttribute("userPlantsList", userPlantList);
+            return new ModelAndView("userpage");
         }
-        model.addAttribute("info", "Wrong password or email try again");
-        return new ModelAndView("/");
+        return new ModelAndView("index").addObject("infoLogin", "Invalid email or password!");
 
     }
 
@@ -77,18 +69,8 @@ public class DBController {
         if (session.getAttribute("user") != null) {
             User user = (User)session.getAttribute("user");
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
-
-
-            int nextPlant = userPlantList.get(0).waterDays;
-
-            for(UserPlant up: userPlantList){
-                if(up.waterDays>nextPlant) {
-                    nextPlant=up.waterDays;
-                }
-            }
-            return new ModelAndView("userpage").addObject("userPlansList", userPlantList)
-                    .addObject("time", nextPlant);
-
+            session.setAttribute("userPlantsList", userPlantList);
+            return new ModelAndView("userpage").addObject("userPlantsList", userPlantList);
         }
         return new ModelAndView("redirect:/");
     }
@@ -100,21 +82,21 @@ public class DBController {
 
 
     @PostMapping("/passwordVerification")
-    public String /*ModelAndView*/ passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
+    public /*String*/ ModelAndView passwordVerification(@RequestParam String newPassword, @RequestParam String oldPassword, HttpSession session, Model model) {
         if(session.getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");
             if (user.getPassword().equals(oldPassword)) {
                 DBConnection.changePassword(user.getUserId(), newPassword);
-                model.addAttribute("info", "Password has been changed");
-                return "changePassword";
-                //return new ModelAndView("changePassword").addObject("info", "Password has been changed");
+                //model.addAttribute("info", "Password has been changed");
+                //return "changePassword";
+                return new ModelAndView("changePassword").addObject("info", "Password has been changed");
             } else {
-                model.addAttribute("info", "Wrong password!");
-                return "changePassword";
-                //return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
+                //model.addAttribute("info", "Wrong password!");
+                //return "changePassword";
+                return new ModelAndView("changePassword").addObject("info", "Incorrect old password!");
             }
         }
-        return "redirect:/";
+        return new ModelAndView("userpage");
     }
 
     @GetMapping("/logout")
@@ -139,16 +121,32 @@ public class DBController {
         return "addplant";
     }
 
+    @PostMapping("/updateSql")
+    public ModelAndView updateDates(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        
+        return new ModelAndView("userpage");
+    }
+
     @PostMapping("/addUserPlant")
-    public String addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
-        session.setAttribute("warning", "ok");
+    public ModelAndView addUserPlant(@RequestParam String nickName, @RequestParam String plantSpecies, @RequestParam int userId, HttpSession session){
         boolean nickNameExists = DBConnection.nickNameAlreadyExists(nickName, userId);
+
+        int plantID = DBConnection.getPlantIdFromPlants(plantSpecies);
+        int wdays = DBConnection.getWateringDays(plantID);
+
+        LocalDate regdate = LocalDate.now();
+        LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
+
         if(!nickNameExists){
-            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies);
-            return "redirect:/user";
+
+            DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(futureDate));
+            List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
+            session.setAttribute("userPlantsList", userPlantList);
+            return new ModelAndView("userpage");
+
         }
-        session.setAttribute("warning", "Nickname already exists!");
-        return "addplant";
+        return new ModelAndView("userpage").addObject("warning", "Nickname already exists!");
     }
 
     @RequestMapping(path = "/GET", method = RequestMethod.GET)
@@ -166,8 +164,9 @@ public class DBController {
     }
 
     @GetMapping("/deletePlant/{nickName}")
-    public String deletePlant(@PathVariable String nickName){
-        DBConnection.deletePlantFromUserPlants(nickName);
+    public String deletePlant(@PathVariable String nickName, HttpSession session){
+        User user =  (User) session.getAttribute("user");
+        DBConnection.deletePlantFromUserPlants(nickName, user.getUserId());
         return "redirect:/user";
     }
 
@@ -175,8 +174,6 @@ public class DBController {
     public String testClock(){
         return  "clock";
     }
-
-
 
 
 }
