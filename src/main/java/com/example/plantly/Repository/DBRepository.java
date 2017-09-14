@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -197,6 +198,26 @@ public class DBRepository implements PlantyDBRepository {
         }
     }
 
+    @Override
+    public LocalDate getWateredDay(String usersPlantsID) {
+        int userPlantsID = Integer.parseInt(usersPlantsID);
+
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("select WateringDate from [UsersPlants] where UsersPlantsID = ?")) {
+            ps.setInt(1, userPlantsID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    LocalDate nextWater = (rs.getDate("WateringDate")).toLocalDate();
+                    return nextWater;
+                }
+            }catch(SQLException e){
+                return null;
+            }
+        }catch (SQLException e){
+            throw new PlantyRepositoryException(e);
+        }
+        return null;
+    }
 
     public int getPlantIdFromPlants(String plantSpecies){
         try(Connection conn = dataSource.getConnection();
@@ -237,6 +258,8 @@ public class DBRepository implements PlantyDBRepository {
         System.out.println("here are we");
         return wateringDays;
     }
+
+
 
     @Override
     public List<UserPlant> getUserPlantsInfo(int userId) {

@@ -165,6 +165,8 @@ public class DBController {
     @GetMapping ("/updateWateringDays/{usersPlantsID}")
     public String updateDates(@PathVariable String usersPlantsID) {
         System.out.println(usersPlantsID);
+        LocalDate wateredDay = DBConnection.getWateredDay(usersPlantsID);
+        System.out.println(wateredDay);
 
         return "redirect:/user";
     }
