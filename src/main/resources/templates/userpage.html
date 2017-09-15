@@ -115,7 +115,6 @@
                         <th>Remove</th>
                     </tr>
 
-                    <!--a th:href="@{'/plantInfo' + ${plantInfo.plantSpecies}}">-->
                     <tr th:each="plantInfo : ${session.userPlantsList}">
                         <td data-th="Nickname " th:text="${plantInfo.nickName}"></td>
                         <td data-th="Plant species ">

@@ -81,14 +81,16 @@
             <label>
               first name<span class="req">*</span>
             </label>
-            <input type="text" name="firstname" required="required" autocomplete="off"/>
+            <input type="text" name="firstname" required="required" autocomplete="off"  maxlength="30" title="Type your first name maximum 30 characters"
+                   oninvalid="this.setCustomValidity('First name required')" oninput="setCustomValidity('')"/>
           </div>
 
           <div class="field-wrap">
             <label>
               last name<span class="req">*</span>
             </label>
-            <input type="text" name="lastname" required="required" autocomplete="off"/>
+            <input type="text" name="lastname" required="required" autocomplete="off"  maxlength="30" title="Type in your last name maximum 30 characters"
+                   oninvalid="this.setCustomValidity('Last name required')" oninput="setCustomValidity('')"/>
           </div>
         </div>
 
@@ -96,14 +98,16 @@
           <label>
             email<span class="req">*</span>
           </label>
-          <input type="email" name="email" required="required" autocomplete="off"/>
+          <input type="email" name="email" required="required" autocomplete="off" maxlength="35" title="Type your email maximum 35 characters"
+                 oninvalid="this.setCustomValidity('Invalid email')" oninput="setCustomValidity('')"/>
         </div>
 
         <div class="field-wrap">
           <label>
             set password<span class="req">*</span>
           </label>
-          <input type="password" name="password" required="required" autocomplete="off"/>
+          <input type="password" name="password" required="required" autocomplete="off" maxlength="30" title="Set your password maximum 30 characters"
+                 oninvalid="this.setCustomValidity('Invalid password')" oninput="setCustomValidity('')"/>
         </div>
 
         <button type="submit" value="Sign up" class="button button-block">get started</button>
@@ -121,14 +125,16 @@
           <label>
             email<span class="req">*</span>
           </label>
-          <input type="email" name="email" required="required" autocomplete="off"/>
+          <input class="theTooltip" type="email" name="email" required="required" autocomplete="off" maxlength="35" title="Type your email maximum 35 characters"
+                 oninvalid="this.setCustomValidity('Invalid email')" oninput="setCustomValidity('')"/>
         </div>
 
         <div class="field-wrap">
           <label>
             password<span class="req">*</span>
           </label>
-          <input type="password" name="password" required="required" autocomplete="off"/>
+          <input type="password" name="password" required="required" autocomplete="off" maxlength="30" title="Type your password maximum 30 characters"
+                 oninvalid="this.setCustomValidity('Type your password')" oninput="setCustomValidity('')"/>
         </div>
 
         <button class="button button-block" type="submit" value="Login">Log In</button>
