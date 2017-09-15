@@ -113,9 +113,12 @@ public class DBController {
     }
 
     @GetMapping("/plantinfo/{plantSpecies}")
-    public ModelAndView plantinfo(@PathVariable String plantSpecies) {
-        Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
-        return new ModelAndView("plantinfo").addObject("plant", plant);
+    public ModelAndView plantinfo(@PathVariable String plantSpecies, HttpSession session) {
+        if(session.getAttribute("user") != null) {
+            Plant plant = DBConnection.getPlantByPlantSpecies(plantSpecies); // get plant from Plants database using plantSpecies
+            return new ModelAndView("plantinfo").addObject("plant", plant);
+        }
+        return new ModelAndView("index");
     }
 
     @GetMapping("/addplant")

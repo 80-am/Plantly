@@ -570,6 +570,9 @@ svg {
 #water-button a {
 color: white;
 }
+:invalid{
+  color: red;
+}
 #water-button:hover {
   background: #179b77;
 }
@@ -613,3 +616,15 @@ color: white;
   text-align: center;
   font-size: 18px;
 }
+.submitted input:invalid {
+  border: 1px solid #f00;
+}
+.submitted input:invalid ~ .theTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.submitted input:valid ~ .theTooltip {
+  -webkit-transition: opacity 0.3s, visibility 0s 0.3s;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+}
+::-webkit-validation-bubble{}
