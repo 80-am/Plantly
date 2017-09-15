@@ -66,47 +66,42 @@
     <div class="row">
         <div class="col-md-12 content-area content-padding">
 
+                <div class="col-md-3">
+
+                        <div class="my-plantly-form" id="my-plantly-add-div" th:if="${!session.userPlantsList.empty}">
+                            <h2 th:text="${session.userPlantsList[0].nickName}"></h2>
+                            <h4 class="needs-water">Needs water in</h4>
+
+                                <!--<div th:attr="data-timer=${time}" class="clock" data-unit="Days"></div>-->
+                                <!-- <div class="clock" data-timer="88000" data-unit="Years"></div>-->
+                                <h4 class="needs-water" th:text="${session.userPlantsList[0].daysLeft + ' days'}"></h4>
+
+                    </div>
 
 
-            <div class="col-md-3 my-plantly-form" id="my-plantly-add-div">
-                <!--== clock is located here !!!!-->
-                <div th:if="${!session.userPlantsList.empty}">
-                    <h2  th:text="${session.userPlantsList[0].nickName}"></h2>
-                    <h4 class="needs-water">Needs water in</h4>
+                <div class="my-plantly-form">
+                    <h2>Add Plant</h2>
+                    <form action="/addUserPlant" method="post">
+                        <input type="hidden" th:value="${session.user.userId}" name="userId"/>
+                        <div class="field-wrap">
+                            <label>
+                                Nickname: <span class="req"></span>
+                            </label>
+                            <input type="text" name="nickName" required="required" autocomplete="off"/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Plant Species: <span class="req"></span>
+                            </label>
+                            <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
+                        </div>
 
-                    <div class="col-md-12">
-                        <!--<div th:attr="data-timer=${time}" class="clock" data-unit="Days"></div>-->
-                        <!-- <div class="clock" data-timer="88000" data-unit="Years"></div>-->
-                        <div class="needs-water" th:text="${session.userPlantsList[0].waterDays}"></div>
-                        <div class="needs-water">days</div>
-                        <button class="restart button button-block" id="my-plantly-form-resetbutton">Water Plant</button>
+                        <button type="submit" class="button button-block" id="my-plantly-form-addbutton">Add</button>
+                        <div th:if="${warning}" th:text="${warning}"></div>
+                    </form>
                 </div>
-
             </div>
-
-                <h2>Add Plant</h2>
-                <form action="/addUserPlant" method="post">
-                    <input type="hidden" th:value="${session.user.userId}" name="userId"/>
-                    <div class="field-wrap">
-                        <label>
-                            Nickname: <span class="req"></span>
-                        </label>
-                        <input type="text" name="nickName" required="required" autocomplete="off"/>
-                    </div>
-                    <div class="field-wrap">
-                        <label>
-                            Plant Species: <span class="req"></span>
-                        </label>
-                        <input id="tags" type="text" name="plantSpecies" required="required" autocomplete="off"/>
-                    </div>
-
-                    <button type="submit" class="button button-block" id="my-plantly-form-addbutton" >Add</button>
-                <div th:if="${warning}" th:text="${warning}"></div>
-                </form>
-
-            </div>
-
-           <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
 
             <div class="col-md-8 my-plantly-form">
                 <h2>My Plants</h2>
@@ -115,23 +110,25 @@
                         <th>Nickname</th>
                         <th>Plant Species</th>
                         <th>Light</th>
-                        <th>Water</th>
+                        <th sort="water">Needs water in</th>
                         <th>Water plant</th>
-                        <th></th>
                         <th>Remove</th>
                     </tr>
 
                     <tr th:each="plantInfo : ${session.userPlantsList}">
-                        <td data-th="Plant" th:text="${plantInfo.nickName}"></td>
-                        <td data-th="Type">
+                        <td data-th="Nickname " th:text="${plantInfo.nickName}"></td>
+                        <td data-th="Plant species ">
                             <a th:href="@{'/plantinfo/'+ ${plantInfo.plantSpecies}}"
                                th:text="${plantInfo.plantSpecies}"></a>
                         </td>
-                        <td data-th="Light Needed" th:text="${plantInfo.lightNeeded}"></td>
-                        <td data-th="Water Needs" th:text="${plantInfo.waterDays}"></td>
+                        <td data-th="Light " th:text="${plantInfo.lightNeeded}"></td>
+                        <td data-th="Needs water in " th:text="${plantInfo.daysLeft} + ' days'"></td>
                         <td data-th="Water Plant">
-                            <button id="water-button"><a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">Water</a></button>
+                            <a th:href="'/updateWateringDays/' + ${plantInfo.UsersPlantsID} + '/' +  ${plantInfo.plantSpecies}">
+                                <button class="water-button">Water</button>
+                            </a>
                         </td>
+
                         <td data-th="Remove"><a th:href="'/deletePlant/' + ${plantInfo.nickName}">
                             <span class="glyphicon glyphicon-remove glyphicon-red" aria-hidden="true"></span>
                         </a>

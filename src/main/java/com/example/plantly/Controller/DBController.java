@@ -55,11 +55,32 @@ public class DBController {
         boolean userExists = DBConnection.userExists(email, password);
         User user = DBConnection.getCurrentUser(email, password);
 
-
         if(userExists) {
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
             session.setAttribute("user", user);
             session.setAttribute("userPlantsList", userPlantList);
+            List<LocalDate> listOfWDays = DBConnection.getAllWDays(user.getUserId());
+            System.out.println(listOfWDays);
+
+            LocalDate from = LocalDate.now();
+            LocalDate to = null;
+            long diff = 0;
+
+            for(int i=0; i<userPlantList.size(); i++) {
+                to = userPlantList.get(i).waterDate.toLocalDateTime().toLocalDate();
+                diff = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+                System.out.println(diff + " " +  from + " " + to);
+                userPlantList.get(i).daysLeft = diff;
+            }
+
+
+
+
+
+
+
+
+
             return new ModelAndView("userpage");
         }
         return new ModelAndView("index").addObject("infoLogin", "Invalid email or password!");
@@ -71,6 +92,18 @@ public class DBController {
         if (session.getAttribute("user") != null) {
             User user = (User)session.getAttribute("user");
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(user.getUserId());
+
+            LocalDate from = LocalDate.now();
+            LocalDate to = null;
+            long diff = 0;
+
+            for(int i=0; i<userPlantList.size(); i++) {
+                to = userPlantList.get(i).waterDate.toLocalDateTime().toLocalDate();
+                diff = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+                System.out.println(diff + " " +  from + " " + to);
+                userPlantList.get(i).daysLeft = diff;
+            }
+
             session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage").addObject("userPlantsList", userPlantList);
         }
@@ -143,10 +176,23 @@ public class DBController {
         LocalDate regdate = LocalDate.now();
         LocalDate futureDate = new java.sql.Date(Calendar.getInstance().getTimeInMillis()).toLocalDate().plusDays(wdays);
 
+
+
         if(!nickNameExists){
 
             DBConnection.addPlantToUserPlants(nickName, "needs a image URL", userId, plantSpecies, java.sql.Date.valueOf(regdate), java.sql.Date.valueOf(futureDate));
             List<UserPlant> userPlantList = DBConnection.getUserPlantsInfo(userId);
+
+            LocalDate from = LocalDate.now();
+            LocalDate to = null;
+            long diff = 0;
+
+            for(int i=0; i<userPlantList.size(); i++) {
+                to = userPlantList.get(i).waterDate.toLocalDateTime().toLocalDate();
+                diff = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+                System.out.println(diff + " " +  from + " " + to);
+                userPlantList.get(i).daysLeft = diff;
+            }
             session.setAttribute("userPlantsList", userPlantList);
             return new ModelAndView("userpage");
 
@@ -184,7 +230,6 @@ public class DBController {
         int wdays = DBConnection.getWateringDays(plantID);
         LocalDate futureDate = wateredDay.plusDays(wdays);
         DBConnection.updateDates(usersPlantsID, wateredDay, futureDate);
-        System.out.println(ChronoUnit.DAYS.between(LocalDate.parse(wateredDay.toString()),LocalDate.parse(futureDate.toString())));
         return "redirect:/user";
     }
 
