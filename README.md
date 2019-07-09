@@ -16,7 +16,7 @@ Tools we used to develop the application.
 
 ## Authors
 
-* **adam** - *Initial work* - [adamberntsson](https://github.com/adamberntsson)
+* **adam** - *Initial work* - [80-am](https://github.com/80-am)
 * **farhad** - *Initial work* - [extrahappyperson](https://github.com/extrahappyperson)
 * **joakim** - *Initial work* - [JoakimJohnsson](https://github.com/JoakimJohnsson)
 * **michael** - *Initial work* - [MichaelKulekci](https://github.com/MichaelKulekci)
